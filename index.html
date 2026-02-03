@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragshirts | Konsept Forma Tasarımları</title>
+    <style>
+        /* GENEL AYARLAR */
+        :root {
+            --primary: #00ff88; /* Sportif, neon yeşil vurgu */
+            --dark: #121212;
+            --dark-gray: #1e1e1e;
+            --light: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(18, 18, 18, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            transition: 0.3s;
+        }
+
+        /* HERO BÖLÜMÜ */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=1920&auto=format&fit=crop'); /* Arkaplan resmi */
+            background-size: cover;
+            background-position: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ccc;
+            max-width: 600px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--dark);
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* GALERİ (TASARIMLAR) */
+        .gallery {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,255,136,0.2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 300px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 20px;
+        }
+
+        .card-info h3 {
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .card-info p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .card-btn {
+            display: block;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .card-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #000;
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .social-link {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { display: none; } /* Mobilde menüyü gizledik (basitlik için) */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">FRAGSHIRTS</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#designs">Tasarımlar</a></li>
+                <li><a href="#contact">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Sahadaki Sanat</h1>
+        <p>Futbolun ruhunu modern çizgilerle buluşturuyoruz. Fragshirts özel konsept forma tasarımları.</p>
+        <a href="#designs" class="btn">Koleksiyonu İncele</a>
+    </section>
+
+    <section class="gallery" id="designs">
+        <div style="text-align: center;">
+            <h2 class="section-title">Son Tasarımlar</h2>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/400x400/003366/ffffff?text=Deplasman+Kiti" alt="Forma Tasarımı 1" class="card-img">
+                <div class="card-info">
+                    <h3>Deplasman Konsepti</h3>
+                    <p>Mavi tonların hakim olduğu, şehir silüeti detaylı özel tasarım.</p>
+                    <a href="https://instagram.com/fragshirts" target="_blank" class="card-btn">Instagram'da Gör</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/400x400/800000/ffffff?text=Efsane+Cubuklu" alt="Forma Tasarımı 2" class="card-img">
+                <div class="card-info">
+                    <h3>Efsane Çubuklu</h3>
+                    <p>Klasik çizgilerin modern kumaş teknolojisi görünümüyle buluşması.</p>
+                    <a href="https://instagram.com/fragshirts" target="_blank" class="card-btn">Instagram'da Gör</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/400x400/ffffff/000000?text=Alternatif+Kit" alt="Forma Tasarımı 3" class="card-img">
+                <div class="card-info">
+                    <h3>Alternatif Beyaz</h3>
+                    <p>Minimalist detaylar ve gold işlemelerle şık bir görünüm.</p>
+                    <a href="https://instagram.com/fragshirts" target="_blank" class="card-btn">Instagram'da Gör</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h3>FRAGSHIRTS</h3>
+        <p>Bizi takip edin, yeni tasarımları kaçırmayın.</p>
+        <a href="https://instagram.com/fragshirts" target="_blank" class="social-link">Instagram: @fragshirts</a>
+        <br><br>
+        <small>&copy; 2026 Fragshirts. Tüm hakları saklıdır.</small>
+    </footer>
+
+</body>
+</html>

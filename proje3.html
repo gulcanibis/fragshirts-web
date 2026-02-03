@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje 3 Detayı | Fragshirts</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        :root { --primary: #00ff88; --bg: #121212; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- DİL SİSTEMİ --- */
+        .lang-en { display: none; }
+        body.english-mode .lang-tr { display: none; }
+        body.english-mode .lang-en { display: block; }
+
+        /* HEADER */
+        header { 
+            padding: 20px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 1px solid #333; 
+        }
+
+        .back-btn { 
+            color: #aaa; font-size: 0.9rem; border: 1px solid #444; 
+            padding: 8px 20px; border-radius: 4px; transition:0.3s;
+        }
+        .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        .lang-switch { display: flex; gap: 10px; }
+        .lang-btn {
+            background: transparent; border: 1px solid #444; color: #fff;
+            padding: 5px 10px; cursor: pointer; font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
+        }
+        .lang-btn.active, .lang-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* İÇERİK */
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        
+        .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
+        .project-desc { color: #ccc; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
+
+        /* FOTOĞRAFLAR */
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        footer { text-align: center; padding: 30px; color: #555; font-size: 0.8rem; }
+    </style>
+</head>
+<body class="turkish-mode">
+
+    <header>
+        <a href="index.html" class="back-btn">
+            <span class="lang-tr">← Geri Dön</span>
+            <span class="lang-en">← Go Back</span>
+        </a>
+
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
+            <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="project-title">
+            <span class="lang-tr">Retro Dokunuş (Proje 3)</span>
+            <span class="lang-en">Retro Touch (Project 3)</span>
+        </h1>
+
+        <div class="project-desc">
+            <p class="lang-tr">
+                Geçmişin efsane formalarına bir saygı duruşu. 
+                90'lı yılların geometrik desenlerini, bugünün kumaş teknolojisi ve kalıplarıyla yeniden yorumladık.
+                Nostaljik bir his arayanlar için tasarlandı.
+            </p>
+            <p class="lang-en">
+                A tribute to the legendary kits of the past.
+                We reinterpreted the geometric patterns of the 90s with today's fabric technology and cuts.
+                Designed for those seeking a nostalgic feeling.
+            </p>
+        </div>
+
+        <div class="gallery">
+            <img src="tasarim3.jpeg" alt="Retro Tasarım">
+            <img src="tasarim3.jpeg" alt="Yaka Detayı">
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Fragshirts.</footer>
+
+    <script>
+        function setLanguage(lang) {
+            const body = document.body;
+            const btnTr = document.getElementById('btn-tr');
+            const btnEn = document.getElementById('btn-en');
+
+            if (lang === 'en') {
+                body.classList.add('english-mode');
+                btnTr.classList.remove('active');
+                btnEn.classList.add('active');
+            } else {
+                body.classList.remove('english-mode');
+                btnEn.classList.remove('active');
+                btnTr.classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>

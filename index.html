@@ -8,9 +8,32 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        :root { --primary: #00ff88; --bg: #121212; --text: #fff; --gray: #1e1e1e; }
+        /* --- YENİ RENK PALETİ (GÖRSELE GÖRE GÜNCELLENDİ) --- */
+        :root { 
+            /* Vurgu (Accent) - Canlı Spor Kırmızısı */
+            --primary: #EF4444; 
+            
+            /* Zemin - Kırık Beyaz */
+            --bg: #FAFAFA; 
+            
+            /* Metin - Antrasit Gri */
+            --text: #1F2937; 
+            
+            /* İkincil Alanlar (Kartlar vb.) - Çok Açık Gri */
+            --card-bg: #F3F4F6;
+            
+            /* Kenarlıklar için hafif gri */
+            --border: #e5e7eb;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            overflow-x: hidden; 
+        }
+
         a { text-decoration: none; color: inherit; }
 
         /* --- DİL SİSTEMİ --- */
@@ -24,9 +47,11 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            background: rgba(18,18,18,0.95); 
+            /* Header artık açık renk ve yarı saydam */
+            background: rgba(250, 250, 250, 0.95); 
             position: sticky; top: 0; z-index: 100; 
-            border-bottom: 1px solid #333; 
+            border-bottom: 1px solid var(--border); 
+            backdrop-filter: blur(5px);
         }
         
         /* Logo Ayarı */
@@ -35,13 +60,20 @@
         /* DİL BUTONLARI */
         .lang-switch { display: flex; gap: 10px; }
         .lang-btn {
-            background: transparent; border: 1px solid #444; color: #fff;
+            background: transparent; 
+            border: 1px solid #d1d5db; /* Buton çerçevesi gri */
+            color: var(--text); /* Yazı rengi koyu */
             padding: 5px 10px; cursor: pointer; font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
         }
-        .lang-btn.active, .lang-btn:hover { border-color: var(--primary); color: var(--primary); }
+        /* Aktif buton kırmızı olur, yazı beyaz olur */
+        .lang-btn.active, .lang-btn:hover { 
+            background-color: var(--primary);
+            border-color: var(--primary); 
+            color: #fff; 
+        }
 
 
-        /* ÖNE ÇIKANLAR (SLIDER) - DÜZELTİLMİŞ HALİ */
+        /* ÖNE ÇIKANLAR (SLIDER) */
         .featured-section { position: relative; width: 100%; height: 70vh; overflow: hidden; background-color: #000; }
         
         .slide {
@@ -53,49 +85,80 @@
             background-repeat: no-repeat;
             background-position: center;
 
-            /* GÖRÜNMEZLİK AYARI (Tıklama hatasını çözen kısım) */
-            pointer-events: none; /* Görünmeyenlere tıklanamaz */
+            /* GÖRÜNMEZLİK AYARI */
+            pointer-events: none; 
             z-index: 0;
         }
         
         .slide.active { 
             opacity: 1; 
-            pointer-events: auto; /* Sadece görünen tıklanabilir */
-            z-index: 10; /* En üstte görünen bu olsun */
+            pointer-events: auto; 
+            z-index: 10; 
         }
         
-        /* Slider Üzerindeki Yazı */
+        /* Slider Üzerindeki Yazı Kutusu */
         .slide-content {
             position: absolute; bottom: 10%; left: 5%;
-            background: rgba(0,0,0,0.8); padding: 20px 30px; border-left: 4px solid var(--primary);
+            /* Kutunun arkası koyu kalsın ki yazı okunsun */
+            background: rgba(31, 41, 55, 0.9); 
+            padding: 20px 30px; 
+            border-left: 4px solid var(--primary);
             max-width: 500px;
             backdrop-filter: blur(5px);
+            border-radius: 0 8px 8px 0;
         }
-        .slide-content h2 { font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; }
-        .slide-content p { color: #ddd; margin-bottom: 20px; }
+        /* Slider içindeki yazılar her zaman beyaz kalsın (koyu kutu üstünde olduğu için) */
+        .slide-content h2 { font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; color: #fff; }
+        .slide-content p { color: #e5e7eb; margin-bottom: 20px; }
+        
         .slide-btn {
-            background: var(--primary); color: #000; padding: 10px 25px; 
+            background: var(--primary); color: #fff; padding: 10px 25px; 
             font-weight: bold; border-radius: 4px; display: inline-block;
+            transition: 0.3s;
         }
+        .slide-btn:hover { background-color: #dc2626; } /* Hover efekti */
 
         /* TÜM TASARIMLAR BAŞLIĞI */
         .section-header { text-align: center; padding: 60px 20px 20px; }
-        .section-header h2 { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 10px; }
+        .section-header h2 { 
+            font-size: 2rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: var(--text);
+            border-bottom: 3px solid var(--primary); 
+            display: inline-block; 
+            padding-bottom: 10px; 
+        }
 
         /* GALERİ GRID */
         .grid-container {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px; padding: 40px 5%; margin-bottom: 50px;
+            gap: 25px; padding: 40px 5%; margin-bottom: 50px;
         }
-        .kit-item { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 12px; background: #1a1a1a; transition: 0.3s; }
-        .kit-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,255,136,0.2); }
+        
+        /* KART TASARIMI (YENİ RENKLERLE) */
+        .kit-item { 
+            position: relative; 
+            aspect-ratio: 1/1; 
+            overflow: hidden; 
+            border-radius: 12px; 
+            /* İkincil Alan Rengi */
+            background: var(--card-bg); 
+            transition: 0.3s;
+            border: 1px solid var(--border);
+        }
+        .kit-item:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Gölgeyi yumuşattık */
+            border-color: var(--primary);
+        }
         
         .kit-img { 
             width: 100%; height: 100%; 
             object-fit: cover; 
             transition: 0.5s; 
         }
-        .kit-item:hover .kit-img { transform: scale(1.1); opacity: 0.4; }
+        .kit-item:hover .kit-img { transform: scale(1.05); opacity: 0.3; }
         
         /* Hover Yazısı */
         .kit-info {
@@ -103,12 +166,28 @@
             text-align: center; opacity: 0; transition: 0.3s; width: 100%;
         }
         .kit-item:hover .kit-info { opacity: 1; }
-        .kit-info h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .view-btn { border: 1px solid var(--primary); color: var(--primary); padding: 8px 20px; border-radius: 20px; font-size: 0.9rem; }
-        .view-btn:hover { background: var(--primary); color: #000; }
+        
+        .kit-info h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--text); font-weight: bold; }
+        
+        .view-btn { 
+            border: 2px solid var(--primary); 
+            color: var(--primary); 
+            padding: 8px 25px; 
+            border-radius: 50px; 
+            font-size: 0.95rem; 
+            background: #fff;
+            font-weight: 600;
+        }
+        .view-btn:hover { background: var(--primary); color: #fff; }
 
         /* Footer */
-        footer { text-align: center; padding: 40px; border-top: 1px solid #333; color: #666; }
+        footer { 
+            text-align: center; 
+            padding: 40px; 
+            border-top: 1px solid var(--border); 
+            color: #6b7280; /* Gri tonu */
+            background-color: var(--card-bg);
+        }
 
         @media (max-width: 768px) {
             .featured-section { height: 50vh; } 
@@ -119,7 +198,7 @@
 <body class="turkish-mode">
 
     <header>
-        <a href="index.html"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
+        <a href="/"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
         
         <div class="lang-switch">
             <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>

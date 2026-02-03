@@ -3,62 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proje Detayı | Fragshirts</title>
+    <title>Proje 1 Detayı | Fragshirts</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    
     <style>
-        :root { --primary: #00ff88; --bg: #121212; --text: #fff; }
+        /* --- YENİ RENK PALETİ --- */
+        :root { 
+            --primary: #EF4444;  /* Kırmızı */
+            --bg: #FAFAFA;       /* Kırık Beyaz */
+            --text: #1F2937;     /* Koyu Gri */
+            --border: #e5e7eb;   /* Kenarlık Gri */
+        }
+        
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
         a { text-decoration: none; color: inherit; }
 
-        /* Basit Header */
-        header { padding: 20px; text-align: center; border-bottom: 1px solid #333; }
-        .back-btn { 
-            position: absolute; left: 20px; top: 25px; 
-            color: #aaa; font-size: 0.9rem; border: 1px solid #444; 
-            padding: 5px 15px; border-radius: 4px; transition:0.3s;
-        }
-        .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+        /* --- DİL SİSTEMİ --- */
+        .lang-en { display: none; }
+        body.english-mode .lang-tr { display: none; }
+        body.english-mode .lang-en { display: block; }
 
-        /* İçerik Alanı */
+        /* HEADER */
+        header { 
+            padding: 20px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: rgba(250,250,250,0.95); /* Açık renk transparan */
+            border-bottom: 1px solid var(--border); 
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Geri Dön Butonu */
+        .back-btn { 
+            color: var(--text); 
+            font-size: 0.9rem; 
+            border: 1px solid #d1d5db; 
+            padding: 8px 20px; 
+            border-radius: 4px; 
+            transition:0.3s;
+            font-weight: 500;
+        }
+        .back-btn:hover { 
+            background: var(--primary); 
+            color: #fff; 
+            border-color: var(--primary); 
+        }
+
+        /* Dil Butonları */
+        .lang-switch { display: flex; gap: 10px; }
+        .lang-btn {
+            background: transparent; border: 1px solid #d1d5db; color: var(--text);
+            padding: 5px 10px; cursor: pointer; font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
+        }
+        .lang-btn.active, .lang-btn:hover { 
+            background: var(--primary); 
+            color: #fff; 
+            border-color: var(--primary); 
+        }
+
+        /* İÇERİK */
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
         
-        .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
-        .project-desc { color: #ccc; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
+        .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
+        .project-desc { color: #4b5563; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
 
-        /* Fotoğraflar (Alt Alta) */
+        /* FOTOĞRAFLAR */
         .gallery img {
             width: 100%;
             height: auto;
             border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Hafif gölge */
+            border: 1px solid var(--border);
         }
         
-        /* Footer */
-        footer { text-align: center; padding: 30px; color: #555; font-size: 0.8rem; }
+        footer { 
+            text-align: center; 
+            padding: 30px; 
+            color: #6b7280; 
+            font-size: 0.8rem; 
+            border-top: 1px solid var(--border); 
+            background: #f3f4f6;
+        }
     </style>
 </head>
-<body>
+<body class="turkish-mode">
 
     <header>
-        <a href="index.html" class="back-btn">← Geri Dön</a>
-        <h3 style="margin:0;">FRAGSHIRTS</h3>
+        <a href="/" class="back-btn">
+            <span class="lang-tr">← Geri Dön</span>
+            <span class="lang-en">← Go Back</span>
+        </a>
+
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
+            <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
     </header>
 
     <div class="container">
-        <h1 class="project-title">Deplasman Konsepti (Proje 1)</h1>
-        <p class="project-desc">
-            Bu forma tasarımında şehrin gece ışıklarından ilham alındı. 
-            Kumaş üzerinde özel pattern dokusu kullanılarak modern bir görünüm elde edildi.
-            Aşağıda formanın ön, arka ve şort detaylarını görebilirsiniz.
-        </p>
+        <h1 class="project-title">
+            <span class="lang-tr">Deplasman Konsepti (Proje 1)</span>
+            <span class="lang-en">Away Concept Kit (Project 1)</span>
+        </h1>
+
+        <div class="project-desc">
+            <p class="lang-tr">
+                Bu forma tasarımında şehrin gece ışıklarından ilham alındı. 
+                Kumaş üzerinde özel pattern dokusu kullanılarak modern bir görünüm elde edildi.
+                Aşağıda formanın ön, arka ve şort detaylarını görebilirsiniz.
+            </p>
+            <p class="lang-en">
+                This kit design is inspired by the city's night lights. 
+                A modern look was achieved by using a special pattern texture on the fabric.
+                Below you can see the front, back, and shorts details of the kit.
+            </p>
+        </div>
 
         <div class="gallery">
-            <img src="tasarim1.jpeg" alt="Ön Görünüm">
-            <img src="tasarim2.jpeg" alt="Arka Görünüm"> <img src="tasarim3.jpeg" alt="Detay">         </div>
+            <img src="tasarim1.jpeg" alt="Görünüm 1">
+            <img src="tasarim1.jpeg" alt="Görünüm 2">
+        </div>
     </div>
 
     <footer>&copy; 2026 Fragshirts.</footer>
 
+    <script>
+        function setLanguage(lang) {
+            const body = document.body;
+            const btnTr = document.getElementById('btn-tr');
+            const btnEn = document.getElementById('btn-en');
+            if (lang === 'en') {
+                body.classList.add('english-mode');
+                btnTr.classList.remove('active');
+                btnEn.classList.add('active');
+            } else {
+                body.classList.remove('english-mode');
+                btnEn.classList.remove('active');
+                btnTr.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -3,259 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fragshirts | Konsept Forma Tasarımları</title>
+    <title>Fragshirts | Concept Kits</title>
     <style>
-        /* GENEL AYARLAR */
+        /* --- AYARLAR & RENKLER --- */
         :root {
-            --primary: #00ff88; /* Sportif, neon yeşil vurgu */
-            --dark: #121212;
-            --dark-gray: #1e1e1e;
-            --light: #f4f4f4;
+            --primary: #00ff88; /* Senin Neon Yeşilin */
+            --bg-color: #121212; /* Sabit Kalan Koyu Arka Plan */
+            --overlay-bg: rgba(0, 0, 0, 0.85); /* Hover olunca çıkan siyah perde */
+            --text-light: #ffffff;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif; /* Modern, temiz font */
         }
 
         body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            overflow-x: hidden;
         }
 
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* HEADER */
+        /* --- HEADER (Minimalist) --- */
         header {
+            padding: 30px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
-            background-color: rgba(18, 18, 18, 0.95);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #333;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-light);
+        }
+
+        .brand span { color: var(--primary); }
+
+        .social-btn {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary);
             color: var(--primary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
         }
 
-        nav ul {
-            display: flex;
-            gap: 20px;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-            transition: 0.3s;
-        }
-
-        /* HERO BÖLÜMÜ */
+        /* --- HERO BÖLÜMÜ (Daha Sade) --- */
         .hero {
-            height: 80vh;
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        /* --- ANA GALERİ (Kitsbysamu Tarzı) --- */
+        .grid-container {
+            display: grid;
+            /* Ekran genişliğine göre otomatik sığdırır */
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+            gap: 20px; /* Görseller arası boşluk */
+            padding: 20px 5%;
+            margin-bottom: 50px;
+        }
+
+        .kit-item {
+            position: relative;
+            aspect-ratio: 1 / 1; /* Kare format (Instagram uyumlu) */
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            background-color: #1a1a1a; /* Resim yüklenmezse görünecek renk */
+        }
+
+        /* Resim Ayarları */
+        .kit-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Resmi kutuya sığdırır */
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Hover (Üzerine gelme) Alanı */
+        .kit-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--overlay-bg);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            opacity: 0; /* Başlangıçta gizli */
+            transition: opacity 0.4s ease;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=1920&auto=format&fit=crop'); /* Arkaplan resmi */
-            background-size: cover;
-            background-position: center;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: #ccc;
-            max-width: 600px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            background-color: var(--primary);
-            color: var(--dark);
-            font-weight: bold;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #fff;
-            transform: translateY(-3px);
-        }
-
-        /* GALERİ (TASARIMLAR) */
-        .gallery {
-            padding: 80px 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 50px;
-            border-bottom: 2px solid var(--primary);
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background-color: var(--dark-gray);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,255,136,0.2);
-        }
-
-        .card-img {
-            width: 100%;
-            height: 300px;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            object-fit: cover;
-        }
-
-        .card-info {
             padding: 20px;
         }
 
-        .card-info h3 {
+        .kit-title {
+            font-size: 1.5rem;
+            font-weight: bold;
             margin-bottom: 10px;
-            color: var(--light);
+            transform: translateY(20px);
+            transition: transform 0.4s;
         }
 
-        .card-info p {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 15px;
-        }
-
-        .card-btn {
-            display: block;
-            text-align: center;
-            background: transparent;
-            border: 1px solid var(--primary);
+        .kit-link {
             color: var(--primary);
-            padding: 8px;
-            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             font-size: 0.9rem;
+            transform: translateY(20px);
+            transition: transform 0.4s 0.1s; /* Hafif gecikmeli gelsin */
         }
 
-        .card-btn:hover {
-            background: var(--primary);
-            color: var(--dark);
+        /* --- İNTERAKSİYONLAR --- */
+        .kit-item:hover .kit-img {
+            transform: scale(1.1); /* Resim hafif zoom yapar */
         }
 
-        /* FOOTER */
+        .kit-item:hover .kit-overlay {
+            opacity: 1; /* Yazı görünür olur */
+        }
+
+        .kit-item:hover .kit-title,
+        .kit-item:hover .kit-link {
+            transform: translateY(0); /* Yazılar yukarı kayarak yerine gelir */
+        }
+
+        /* --- FOOTER --- */
         footer {
-            background-color: #000;
-            padding: 40px 5%;
             text-align: center;
-            border-top: 1px solid #333;
+            padding: 40px;
+            color: #555;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
         }
 
-        .social-link {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-top: 10px;
-            display: inline-block;
-        }
-
-        /* RESPONSIVE */
+        /* MOBİL UYUM */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            nav ul { display: none; } /* Mobilde menüyü gizledik (basitlik için) */
+            .hero h1 { font-size: 2rem; }
+            .grid-container { grid-template-columns: 1fr; } /* Mobilde tek sütun */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">FRAGSHIRTS</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Ana Sayfa</a></li>
-                <li><a href="#designs">Tasarımlar</a></li>
-                <li><a href="#contact">İletişim</a></li>
-            </ul>
-        </nav>
+        <div class="brand">FRAG<span>SHIRTS</span></div>
+        <a href="https://instagram.com/fragshirts" target="_blank" class="social-btn">Instagram</a>
     </header>
 
-    <section class="hero" id="home">
-        <h1>Sahadaki Sanat</h1>
-        <p>Futbolun ruhunu modern çizgilerle buluşturuyoruz. Fragshirts özel konsept forma tasarımları.</p>
-        <a href="#designs" class="btn">Koleksiyonu İncele</a>
+    <section class="hero">
+        <h1>TASARIMIN<br>DİJİTAL HALİ</h1>
+        <p>Konsept forma tasarımları ve modern futbol estetiği.</p>
     </section>
 
-    <section class="gallery" id="designs">
-        <div style="text-align: center;">
-            <h2 class="section-title">Son Tasarımlar</h2>
-        </div>
+    <div class="grid-container">
         
-        <div class="gallery-grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/400x400/003366/ffffff?text=Deplasman+Kiti" alt="Forma Tasarımı 1" class="card-img">
-                <div class="card-info">
-                    <h3>Deplasman Konsepti</h3>
-                    <p>Mavi tonların hakim olduğu, şehir silüeti detaylı özel tasarım.</p>
-                    <a href="https://instagram.com/fragshirts" target="_blank" class="card-btn">Instagram'da Gör</a>
-                </div>
+        <div class="kit-item">
+            <img src="https://via.placeholder.com/800x800/003366/ffffff?text=Deplasman+Kiti" alt="Kit 1" class="kit-img">
+            <div class="kit-overlay">
+                <div class="kit-title">MAVİ DEPLASMAN</div>
+                <div class="kit-link">Detayları Gör →</div>
             </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/400x400/800000/ffffff?text=Efsane+Cubuklu" alt="Forma Tasarımı 2" class="card-img">
-                <div class="card-info">
-                    <h3>Efsane Çubuklu</h3>
-                    <p>Klasik çizgilerin modern kumaş teknolojisi görünümüyle buluşması.</p>
-                    <a href="https://instagram.com/fragshirts" target="_blank" class="card-btn">Instagram'da Gör</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/400x400/ffffff/000000?text=Alternatif+Kit" alt="Forma Tasarımı 3" class="card-img">
-                <div class="card-info">
-                    <h3>Alternatif Beyaz</h3>
-                    <p>Minimalist detaylar ve gold işlemelerle şık bir görünüm.</p>
-                    <a href="https://instagram.com/fragshirts" target="_blank" class="card-btn">Instagram'da Gör</a>
-                </div>
-            </div>
+            <a href="https://instagram.com/fragshirts" class="full-link" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:2;"></a>
         </div>
-    </section>
 
-    <footer id="contact">
-        <h3>FRAGSHIRTS</h3>
-        <p>Bizi takip edin, yeni tasarımları kaçırmayın.</p>
-        <a href="https://instagram.com/fragshirts" target="_blank" class="social-link">Instagram: @fragshirts</a>
-        <br><br>
-        <small>&copy; 2026 Fragshirts. Tüm hakları saklıdır.</small>
+        <div class="kit-item">
+            <img src="https://via.placeholder.com/800x800/800000/ffffff?text=Efsane+Cubuklu" alt="Kit 2" class="kit-img">
+            <div class="kit-overlay">
+                <div class="kit-title">EFSANE ÇUBUKLU</div>
+                <div class="kit-link">Detayları Gör →</div>
+            </div>
+            <a href="https://instagram.com/fragshirts" class="full-link" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:2;"></a>
+        </div>
+
+        <div class="kit-item">
+            <img src="https://via.placeholder.com/800x800/ffffff/000000?text=Gold+Edition" alt="Kit 3" class="kit-img">
+            <div class="kit-overlay">
+                <div class="kit-title">GOLD EDITION</div>
+                <div class="kit-link">Detayları Gör →</div>
+            </div>
+            <a href="https://instagram.com/fragshirts" class="full-link" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:2;"></a>
+        </div>
+
+        <div class="kit-item">
+            <img src="https://via.placeholder.com/800x800/222222/00ff88?text=Neon+Concept" alt="Kit 4" class="kit-img">
+            <div class="kit-overlay">
+                <div class="kit-title">NEON KONSEPT</div>
+                <div class="kit-link">Detayları Gör →</div>
+            </div>
+            <a href="https://instagram.com/fragshirts" class="full-link" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:2;"></a>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Fragshirts Design.
     </footer>
 
 </body>

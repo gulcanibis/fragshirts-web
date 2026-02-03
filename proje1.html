@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje Detayı | Fragshirts</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root { --primary: #00ff88; --bg: #121212; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Basit Header */
+        header { padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+        .back-btn { 
+            position: absolute; left: 20px; top: 25px; 
+            color: #aaa; font-size: 0.9rem; border: 1px solid #444; 
+            padding: 5px 15px; border-radius: 4px; transition:0.3s;
+        }
+        .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* İçerik Alanı */
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        
+        .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
+        .project-desc { color: #ccc; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
+
+        /* Fotoğraflar (Alt Alta) */
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        /* Footer */
+        footer { text-align: center; padding: 30px; color: #555; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn">← Geri Dön</a>
+        <h3 style="margin:0;">FRAGSHIRTS</h3>
+    </header>
+
+    <div class="container">
+        <h1 class="project-title">Deplasman Konsepti (Proje 1)</h1>
+        <p class="project-desc">
+            Bu forma tasarımında şehrin gece ışıklarından ilham alındı. 
+            Kumaş üzerinde özel pattern dokusu kullanılarak modern bir görünüm elde edildi.
+            Aşağıda formanın ön, arka ve şort detaylarını görebilirsiniz.
+        </p>
+
+        <div class="gallery">
+            <img src="tasarim1.jpeg" alt="Ön Görünüm">
+            <img src="tasarim2.jpeg" alt="Arka Görünüm"> <img src="tasarim3.jpeg" alt="Detay">         </div>
+    </div>
+
+    <footer>&copy; 2026 Fragshirts.</footer>
+
+</body>
+</html>

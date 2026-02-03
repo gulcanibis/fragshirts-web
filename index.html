@@ -25,17 +25,14 @@
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
 
-        /* --- DİL SİSTEMİ (Mantık) --- */
-        /* Varsayılan olarak İngilizceyi gizle */
+        /* --- DİL SİSTEMİ --- */
         .lang-en { display: none; }
-        
-        /* Javascript ile body'ye 'english-mode' eklenirse Türkçeyi gizle, İngilizceyi aç */
         body.english-mode .lang-tr { display: none; }
         body.english-mode .lang-en { display: block; }
 
-        /* --- HEADER --- */
+        /* --- HEADER (GÜNCELLENDİ) --- */
         header {
-            padding: 20px 5%;
+            padding: 15px 5%; /* Yüksekliği dengelemek için paddingi biraz kıstım */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -46,8 +43,12 @@
             border-bottom: 1px solid #333;
         }
 
-        .brand { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
-        .brand span { color: var(--primary); }
+        /* YENİ LOGO AYARI */
+        .logo-img {
+            height: 50px; /* Logonun yüksekliği. İstersen 40px veya 60px yapabilirsin */
+            width: auto;  /* Genişlik otomatik ayarlanır, bozulmaz */
+            display: block; /* Altındaki boşlukları siler */
+        }
 
         .lang-switch {
             display: flex;
@@ -111,7 +112,7 @@
             background-color: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 60px; /* Kartlar arası boşluk */
+            margin-bottom: 60px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
@@ -119,20 +120,19 @@
         .slider-wrapper {
             position: relative;
             width: 100%;
-            aspect-ratio: 16/9; /* Mobilde kare olsun istersen 1/1 yap */
+            aspect-ratio: 16/9; 
             background-color: #000;
         }
 
         .slide {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Resmi kesmeden sığdırır. Kesmek istersen 'cover' yap */
-            display: none; /* JS ile açılacak */
+            object-fit: contain;
+            display: none;
         }
 
         .slide.active { display: block; animation: fade 0.5s; }
 
-        /* Slider Butonları */
         .slider-btn {
             position: absolute;
             top: 50%;
@@ -150,7 +150,6 @@
         .prev { left: 0; }
         .next { right: 0; }
 
-        /* Kart Altı Açıklama */
         .card-info { padding: 25px; }
         .card-info h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--primary); }
         .card-info p { color: #bbb; line-height: 1.5; font-size: 0.95rem; }
@@ -189,14 +188,17 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
-            .slider-wrapper { aspect-ratio: 1/1; /* Mobilde kare resim */ }
+            .slider-wrapper { aspect-ratio: 1/1; }
         }
     </style>
 </head>
 <body class="turkish-mode">
 
     <header>
-        <div class="brand">FRAG<span>SHIRTS</span></div>
+        <a href="#">
+            <img src="logo.png" alt="Fragshirts Logo" class="logo-img">
+        </a>
+
         <div class="lang-switch">
             <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
             <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
@@ -218,13 +220,13 @@
                 <h2 class="lang-en">About Me</h2>
 
                 <p class="lang-tr">
-                    Merhaba, ben tutkulu bir forma tasarımcısıyım. 
+                    Merhaba, ben bir Veri Analisti ve tutkulu bir forma tasarımcısıyım. 
                     Futbolun görsel dünyasını verilerin analitik yapısıyla birleştirerek 
                     modern, estetik ve hikayesi olan formalar tasarlıyorum. 
                     Fragshirts, sahadaki renklerin dijital dünyadaki yansımasıdır.
                 </p>
                 <p class="lang-en">
-                    Hello, I am a passionate kit designer. 
+                    Hello, I am a Data Analyst and a passionate kit designer. 
                     I combine the visual world of football with the analytical structure of data 
                     to design modern, aesthetic kits with a story. 
                     Fragshirts is the reflection of the colors on the pitch in the digital world.
@@ -243,7 +245,10 @@
             <div class="slider-wrapper">
                 <button class="slider-btn prev" onclick="changeSlide(this, -1)">&#10094;</button>
                 
-                <img src="tasarim1.jpeg" class="slide active"> <img src="tasarim2.jpeg" class="slide">        <img src="tasarim3.jpeg" class="slide">        <img src="tasarim4.jpeg" class="slide">        <button class="slider-btn next" onclick="changeSlide(this, 1)">&#10095;</button>
+                <img src="tasarim1.jpeg" class="slide active"> 
+                <img src="tasarim2.jpeg" class="slide">        
+                <img src="tasarim3.jpeg" class="slide">
+                <button class="slider-btn next" onclick="changeSlide(this, 1)">&#10095;</button>
             </div>
             
             <div class="card-info">
@@ -252,13 +257,11 @@
                 
                 <p class="lang-tr">
                     Bu tasarımda şehrin mimari yapısından ilham alındı. Koyu lacivert tonların üzerine 
-                    işlenen neon detaylar, gece maçlarındaki stadyum ışıklarını temsil ediyor. 
-                    Kumaş dokusunda nefes alabilen özel bir pattern kullanıldı.
+                    işlenen neon detaylar, gece maçlarındaki stadyum ışıklarını temsil ediyor.
                 </p>
                 <p class="lang-en">
                     This design is inspired by the architectural structure of the city. 
-                    Neon details on dark navy tones represent stadium lights during night matches. 
-                    A special breathable pattern is used in the fabric texture.
+                    Neon details on dark navy tones represent stadium lights during night matches.
                 </p>
             </div>
         </div>
@@ -279,17 +282,15 @@
                 <h3 class="lang-en">LEGENDARY STRIPES</h3>
                 
                 <p class="lang-tr">
-                    Geleneksel çubuklu formaya modern bir dokunuş. Geçmişin zaferlerine saygı duruşu 
-                    niteliğindeki bu tasarımda gold detaylar kullanılarak şampiyonluk vurgusu yapıldı.
+                    Geleneksel çubuklu formaya modern bir dokunuş. Geçmişin zaferlerine saygı duruşu.
                 </p>
                 <p class="lang-en">
-                    A modern touch to the traditional striped jersey. Respecting the victories of the past, 
-                    this design emphasizes championship with gold details.
+                    A modern touch to the traditional striped jersey. Respecting the victories of the past.
                 </p>
             </div>
         </div>
 
-        </div>
+    </div>
 
     <section class="contact-section">
         <h2 style="margin-bottom:20px; color:#fff;">
@@ -337,11 +338,8 @@
 
         // --- SLIDER FONKSİYONU ---
         function changeSlide(btn, n) {
-            // Butonun olduğu slider alanını bul
             const wrapper = btn.closest('.slider-wrapper');
             const slides = wrapper.getElementsByClassName('slide');
-            
-            // Şu an aktif olan resmi bul
             let activeIndex = 0;
             for (let i = 0; i < slides.length; i++) {
                 if (slides[i].classList.contains('active')) {
@@ -350,19 +348,12 @@
                     break;
                 }
             }
-
-            // Yeni indexi hesapla
             let newIndex = activeIndex + n;
-
-            // Başa veya sona gelirse döngüye sok
             if (newIndex >= slides.length) { newIndex = 0; }
             if (newIndex < 0) { newIndex = slides.length - 1; }
-
-            // Yeni resmi aktif yap
             slides[newIndex].classList.add('active');
         }
     </script>
 
 </body>
 </html>
-

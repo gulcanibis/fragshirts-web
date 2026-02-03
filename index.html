@@ -11,27 +11,54 @@
         body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
 
+        /* --- DİL SİSTEMİ --- */
+        .lang-en { display: none; } /* Varsayılan olarak İngilizce gizli */
+        body.english-mode .lang-tr { display: none; } /* İngilizce modundaysa Türkçe gizli */
+        body.english-mode .lang-en { display: block; } /* İngilizce modundaysa İngilizce açık */
+
         /* HEADER */
-        header { padding: 20px 5%; display: flex; justify-content: center; background: rgba(18,18,18,0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; }
+        header { 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: rgba(18,18,18,0.95); 
+            position: sticky; top: 0; z-index: 100; 
+            border-bottom: 1px solid #333; 
+        }
+        
         .logo-img { height: 50px; display: block; }
 
+        /* DİL BUTONLARI */
+        .lang-switch { display: flex; gap: 10px; }
+        .lang-btn {
+            background: transparent; border: 1px solid #444; color: #fff;
+            padding: 5px 10px; cursor: pointer; font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
+        }
+        .lang-btn.active, .lang-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+
         /* ÖNE ÇIKANLAR (SLIDER) */
-        .featured-section { position: relative; width: 100%; height: 80vh; overflow: hidden; }
+        .featured-section { position: relative; width: 100%; height: 70vh; overflow: hidden; background-color: #000; }
         
         .slide {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0; transition: opacity 1s ease-in-out;
-            background-size: cover; background-position: center;
+            /* RESİM AYARLARI (DÜZELTİLDİ) */
+            background-size: contain; /* Resmi kesmeden sığdır */
+            background-repeat: no-repeat;
+            background-position: center;
         }
         .slide.active { opacity: 1; }
         
         /* Slider Üzerindeki Yazı */
         .slide-content {
             position: absolute; bottom: 10%; left: 5%;
-            background: rgba(0,0,0,0.7); padding: 20px 30px; border-left: 4px solid var(--primary);
+            background: rgba(0,0,0,0.8); padding: 20px 30px; border-left: 4px solid var(--primary);
             max-width: 500px;
+            backdrop-filter: blur(5px);
         }
-        .slide-content h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; }
+        .slide-content h2 { font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; }
         .slide-content p { color: #ddd; margin-bottom: 20px; }
         .slide-btn {
             background: var(--primary); color: #000; padding: 10px 25px; 
@@ -42,14 +69,19 @@
         .section-header { text-align: center; padding: 60px 20px 20px; }
         .section-header h2 { font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 10px; }
 
-        /* GALERİ GRID (Tüm Tasarımlar) */
+        /* GALERİ GRID */
         .grid-container {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px; padding: 40px 5%; margin-bottom: 50px;
         }
         .kit-item { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 12px; background: #1a1a1a; transition: 0.3s; }
         .kit-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,255,136,0.2); }
-        .kit-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        
+        .kit-img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; /* Küçük resimler kutuyu doldursun */
+            transition: 0.5s; 
+        }
         .kit-item:hover .kit-img { transform: scale(1.1); opacity: 0.4; }
         
         /* Hover Yazısı */
@@ -64,45 +96,88 @@
 
         /* Footer */
         footer { text-align: center; padding: 40px; border-top: 1px solid #333; color: #666; }
+
+        @media (max-width: 768px) {
+            .featured-section { height: 50vh; } /* Mobilde slider boyunu kısalt */
+            .slide-content h2 { font-size: 1.5rem; }
+        }
     </style>
 </head>
-<body>
+<body class="turkish-mode">
 
     <header>
         <a href="index.html"><img src="logo.png" alt="Fragshirts" class="logo-img"></a>
+        
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
+            <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
     </header>
 
     <section class="featured-section">
         
         <div class="slide active" style="background-image: url('tasarim1.jpeg');">
             <div class="slide-content">
-                <h2>YENİ SEZON KONSEPTİ</h2>
-                <p>Şehrin ruhunu yansıtan modern çizgilerle tasarlandı.</p>
-                <a href="proje1.html" class="slide-btn">İncele</a>
+                <h2>
+                    <span class="lang-tr">YENİ SEZON KONSEPTİ</span>
+                    <span class="lang-en">NEW SEASON CONCEPT</span>
+                </h2>
+                <p>
+                    <span class="lang-tr">Şehrin ruhunu yansıtan modern çizgilerle tasarlandı.</span>
+                    <span class="lang-en">Designed with modern lines reflecting the spirit of the city.</span>
+                </p>
+                <a href="proje1.html" class="slide-btn">
+                    <span class="lang-tr">İncele</span>
+                    <span class="lang-en">View Details</span>
+                </a>
             </div>
         </div>
 
         <div class="slide" style="background-image: url('tasarim2.jpeg');">
             <div class="slide-content">
-                <h2>DEPLASMAN SERİSİ</h2>
-                <p>Karanlıkta parlayan neon detaylar.</p>
-                <a href="proje2.html" class="slide-btn">İncele</a>
+                <h2>
+                    <span class="lang-tr">DEPLASMAN SERİSİ</span>
+                    <span class="lang-en">AWAY SERIES</span>
+                </h2>
+                <p>
+                    <span class="lang-tr">Karanlıkta parlayan neon detaylar.</span>
+                    <span class="lang-en">Neon details glowing in the dark.</span>
+                </p>
+                <a href="proje2.html" class="slide-btn">
+                    <span class="lang-tr">İncele</span>
+                    <span class="lang-en">View Details</span>
+                </a>
             </div>
         </div>
 
         <div class="slide" style="background-image: url('tasarim3.jpeg');">
             <div class="slide-content">
-                <h2>RETRO DOKUNUŞ</h2>
-                <p>Geçmişin efsane formalarına saygı duruşu.</p>
-                <a href="proje3.html" class="slide-btn">İncele</a>
+                <h2>
+                    <span class="lang-tr">RETRO DOKUNUŞ</span>
+                    <span class="lang-en">RETRO TOUCH</span>
+                </h2>
+                <p>
+                    <span class="lang-tr">Geçmişin efsane formalarına saygı duruşu.</span>
+                    <span class="lang-en">A tribute to legendary kits of the past.</span>
+                </p>
+                <a href="proje3.html" class="slide-btn">
+                    <span class="lang-tr">İncele</span>
+                    <span class="lang-en">View Details</span>
+                </a>
             </div>
         </div>
 
     </section>
 
     <div class="section-header" id="all-designs">
-        <h2>TÜM TASARIMLAR</h2>
-        <p style="color:#666; margin-top:10px;">Koleksiyonun tamamına göz atın</p>
+        <h2>
+            <span class="lang-tr">TÜM TASARIMLAR</span>
+            <span class="lang-en">ALL DESIGNS</span>
+        </h2>
+        <p style="color:#666; margin-top:10px;">
+            <span class="lang-tr">Koleksiyonun tamamına göz atın</span>
+            <span class="lang-en">Browse the full collection</span>
+        </p>
     </div>
 
     <div class="grid-container">
@@ -111,7 +186,10 @@
             <img src="tasarim1.jpeg" class="kit-img">
             <div class="kit-info">
                 <h3>Proje 1</h3>
-                <span class="view-btn">Detayları Gör</span>
+                <span class="view-btn">
+                    <span class="lang-tr">Detayları Gör</span>
+                    <span class="lang-en">View Details</span>
+                </span>
             </div>
         </a>
 
@@ -119,7 +197,10 @@
             <img src="tasarim2.jpeg" class="kit-img">
             <div class="kit-info">
                 <h3>Proje 2</h3>
-                <span class="view-btn">Detayları Gör</span>
+                <span class="view-btn">
+                    <span class="lang-tr">Detayları Gör</span>
+                    <span class="lang-en">View Details</span>
+                </span>
             </div>
         </a>
 
@@ -127,7 +208,10 @@
             <img src="tasarim3.jpeg" class="kit-img">
             <div class="kit-info">
                 <h3>Proje 3</h3>
-                <span class="view-btn">Detayları Gör</span>
+                <span class="view-btn">
+                    <span class="lang-tr">Detayları Gör</span>
+                    <span class="lang-en">View Details</span>
+                </span>
             </div>
         </a>
 
@@ -135,7 +219,10 @@
             <img src="tasarim4.jpeg" class="kit-img">
             <div class="kit-info">
                 <h3>Proje 4</h3>
-                <span class="view-btn">Detayları Gör</span>
+                <span class="view-btn">
+                    <span class="lang-tr">Detayları Gör</span>
+                    <span class="lang-en">View Details</span>
+                </span>
             </div>
         </a>
 
@@ -144,18 +231,33 @@
     <footer>&copy; 2026 Fragshirts.</footer>
 
     <script>
-        // OTOMATİK SLIDER KODU
+        // --- SLIDER FONKSİYONU ---
         let slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         
         function nextSlide() {
-            slides[currentSlide].classList.remove('active'); // Eskiyi gizle
-            currentSlide = (currentSlide + 1) % slides.length; // Sıradakine geç
-            slides[currentSlide].classList.add('active'); // Yeniyi göster
+            slides[currentSlide].classList.remove('active'); 
+            currentSlide = (currentSlide + 1) % slides.length; 
+            slides[currentSlide].classList.add('active'); 
         }
+        setInterval(nextSlide, 4000); // 4 saniyede bir değişir
 
-        // 4 Saniyede bir değiştir
-        setInterval(nextSlide, 4000);
+        // --- DİL DEĞİŞTİRME FONKSİYONU ---
+        function setLanguage(lang) {
+            const body = document.body;
+            const btnTr = document.getElementById('btn-tr');
+            const btnEn = document.getElementById('btn-en');
+
+            if (lang === 'en') {
+                body.classList.add('english-mode');
+                btnTr.classList.remove('active');
+                btnEn.classList.add('active');
+            } else {
+                body.classList.remove('english-mode');
+                btnEn.classList.remove('active');
+                btnTr.classList.add('active');
+            }
+        }
     </script>
 </body>
 </html>

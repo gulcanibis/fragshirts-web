@@ -9,10 +9,10 @@
     <style>
         /* --- YENİ RENK PALETİ --- */
         :root { 
-            --primary: #EF4444; 
-            --bg: #FAFAFA;       
-            --text: #1F2937;     
-            --border: #e5e7eb;   
+            --primary: #EF4444;  /* Kırmızı */
+            --bg: #FAFAFA;       /* Kırık Beyaz */
+            --text: #1F2937;     /* Koyu Gri */
+            --border: #e5e7eb;   /* Kenarlık Gri */
         }
         
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
@@ -29,24 +29,39 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            background: rgba(250,250,250,0.95); 
+            background: rgba(250,250,250,0.95); /* Açık renk transparan */
             border-bottom: 1px solid var(--border); 
             position: sticky; top: 0; z-index: 100;
             backdrop-filter: blur(5px);
         }
 
+        /* Geri Dön Butonu */
         .back-btn { 
-            color: var(--text); font-size: 0.9rem; border: 1px solid #d1d5db; 
-            padding: 8px 20px; border-radius: 4px; transition:0.3s; font-weight: 500;
+            color: var(--text); 
+            font-size: 0.9rem; 
+            border: 1px solid #d1d5db; 
+            padding: 8px 20px; 
+            border-radius: 4px; 
+            transition:0.3s;
+            font-weight: 500;
         }
-        .back-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .back-btn:hover { 
+            background: var(--primary); 
+            color: #fff; 
+            border-color: var(--primary); 
+        }
 
+        /* Dil Butonları */
         .lang-switch { display: flex; gap: 10px; }
         .lang-btn {
             background: transparent; border: 1px solid #d1d5db; color: var(--text);
             padding: 5px 10px; cursor: pointer; font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
         }
-        .lang-btn.active, .lang-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .lang-btn.active, .lang-btn:hover { 
+            background: var(--primary); 
+            color: #fff; 
+            border-color: var(--primary); 
+        }
 
         /* İÇERİK */
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
@@ -56,11 +71,22 @@
 
         /* FOTOĞRAFLAR */
         .gallery img {
-            width: 100%; height: auto; border-radius: 12px; margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid var(--border);
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Hafif gölge */
+            border: 1px solid var(--border);
         }
         
-        footer { text-align: center; padding: 30px; color: #6b7280; font-size: 0.8rem; border-top: 1px solid var(--border); background: #f3f4f6; }
+        footer { 
+            text-align: center; 
+            padding: 30px; 
+            color: #6b7280; 
+            font-size: 0.8rem; 
+            border-top: 1px solid var(--border); 
+            background: #f3f4f6;
+        }
     </style>
 </head>
 <body class="turkish-mode">
@@ -79,26 +105,26 @@
 
     <div class="container">
         <h1 class="project-title">
-            <span class="lang-tr">Deplasman Serisi (Proje 2)</span>
-            <span class="lang-en">Away Series (Project 2)</span>
+            <span class="lang-tr">FC Red Bull Salzburg x Nike Third Jersey</span>
+            <span class="lang-en">FC Red Bull Salzburg x Nike Third Jersey </span>
         </h1>
 
         <div class="project-desc">
             <p class="lang-tr">
-                Bu tasarım, modern sokak modası ile futbol estetiğini birleştiriyor. 
-                Siyah zemin üzerine yerleştirilen neon detaylar, formaya dinamik ve güçlü bir hava katıyor.
-                Özellikle gece maçlarında dikkat çekmek üzere tasarlandı.
+                Trabzonspor'un klasik çizgileri, Adidas'ın üç çizgisinin eklenmesiyle hoş bir yeni görünüme kavuşuyor.
             </p>
             <p class="lang-en">
-                This design combines modern street fashion with football aesthetics.
-                The neon details placed on the black background add a dynamic and strong vibe to the kit.
-                It was designed specifically to stand out in night matches.
+                Trabzonspor's classic stripes are taking on a nice new look with the addition of Adidas'three stripes.
             </p>
         </div>
 
         <div class="gallery">
-            <img src="tasarim2.jpeg" alt="Görünüm 1">
-            <img src="tasarim2.jpeg" alt="Görünüm 2"> 
+            <img src="0.png" alt="Görünüm 1">
+            <img src="1.png" alt="Görünüm 2">
+            <img src="2.png" alt="Görünüm 3">
+            <img src="3.png" alt="Görünüm 4">
+            <img src="4.png" alt="Görünüm 5">
+            <img src="5.png" alt="Görünüm 6">
         </div>
     </div>
 

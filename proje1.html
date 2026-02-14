@@ -9,10 +9,10 @@
     <style>
         /* --- YENİ RENK PALETİ --- */
         :root { 
-            --primary: #EF4444;  /* Kırmızı */
-            --bg: #FAFAFA;       /* Kırık Beyaz */
-            --text: #1F2937;     /* Koyu Gri */
-            --border: #e5e7eb;   /* Kenarlık Gri */
+            --primary: #EF4444;  
+            --bg: #FAFAFA;       
+            --text: #1F2937;     
+            --border: #e5e7eb;   
         }
         
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
@@ -64,27 +64,22 @@
         }
 
         /* İÇERİK */
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; } /* Genişliği biraz artırdım */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; } /* Genişliği artırdım */
         
         .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
         .project-desc { color: #4b5563; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
 
-        /* --- FOTOĞRAF GALERİSİ (DÜZENLENDİ) --- */
+        /* --- FOTOĞRAF GALERİSİ (4'LÜ YAN YANA) --- */
         .gallery {
             display: grid;
-            /* Bilgisayarda 2 tane yan yana olsun (1fr 1fr) */
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; /* Fotoğraflar arası boşluk */
-        }
-
-        /* İlk fotoğrafı (Kapak resmini) tam genişlik yapalım ki büyük dursun */
-        .gallery img:first-child {
-            grid-column: span 2; 
+            /* BURASI DEĞİŞTİ: 4 tane eşit sütun oluşturur */
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px; 
         }
 
         .gallery img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -93,17 +88,21 @@
         }
 
         .gallery img:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            z-index: 10;
         }
 
         /* MOBİL UYUMLULUK */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .gallery {
-                grid-template-columns: 1fr; /* Mobilde hepsi tek sütun (alt alta) olsun */
+                grid-template-columns: repeat(2, 1fr); /* Tablette 2'li olsun */
             }
-            .gallery img:first-child {
-                grid-column: span 1;
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr; /* Telefondan tek sütun (alt alta) */
             }
         }
         

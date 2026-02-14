@@ -78,13 +78,13 @@
 
         .gallery img {
             width: 100%;
-            height: auto;
+            height: 250px; /* Sabit yükseklik verdim ki hepsi hizalı dursun */
             object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--border);
             transition: 0.3s;
-            cursor: zoom-in; /* Üzerine gelince büyüteç çıksın */
+            cursor: zoom-in;
         }
 
         .gallery img:hover {
@@ -93,19 +93,20 @@
             z-index: 10;
         }
 
-        /* --- LIGHTBOX (BÜYÜTME PENCERESİ) STİLLERİ --- */
+        /* --- LIGHTBOX (BÜYÜTME PENCERESİ - DÜZELTİLDİ) --- */
         .lightbox {
-            display: none; /* Başlangıçta gizli */
+            display: none; /* JS ile flex yapılacak */
             position: fixed;
-            z-index: 1000;
-            padding-top: 50px;
+            z-index: 2000; /* En üstte olması için */
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8); /* Arka planı karart */
-            backdrop-filter: blur(10px); /* ARKAYI BULANIKLAŞTIRAN KOD */
+            overflow: hidden; /* Taşmayı engelle */
+            background-color: rgba(0, 0, 0, 0.9); /* Arka planı iyice karart */
+            backdrop-filter: blur(8px); /* Bulanıklık */
+            
+            /* MERKEZLEME KODLARI */
             justify-content: center;
             align-items: center;
         }
@@ -115,34 +116,35 @@
             display: block;
             width: auto;
             height: auto;
+            
+            /* RESMİN EKRANDAN TAŞMASINI ENGELLEYEN KOD */
             max-width: 90%;
-            max-height: 90vh;
+            max-height: 90vh; 
+            
             border-radius: 8px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            animation: zoom 0.3s; /* Açılma animasyonu */
+            box-shadow: 0 0 50px rgba(255,255,255,0.1);
+            animation: zoom 0.3s;
         }
 
         /* Kapatma Butonu (X) */
         .close {
             position: absolute;
             top: 20px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
+            right: 40px;
+            color: #fff;
+            font-size: 50px;
             font-weight: bold;
             transition: 0.3s;
             cursor: pointer;
-            z-index: 1001;
+            z-index: 2001;
         }
-        .close:hover, .close:focus {
+        .close:hover {
             color: var(--primary);
-            text-decoration: none;
-            cursor: pointer;
         }
 
         @keyframes zoom {
-            from {transform:scale(0)} 
-            to {transform:scale(1)}
+            from {transform:scale(0.8); opacity: 0;} 
+            to {transform:scale(1); opacity: 1;}
         }
 
         /* MOBİL UYUMLULUK */
@@ -151,7 +153,8 @@
         }
         @media (max-width: 600px) {
             .gallery { grid-template-columns: 1fr; }
-            .lightbox-content { width: 95%; } /* Mobilde tam ekran olsun */
+            .lightbox-content { max-width: 95%; }
+            .close { top: 10px; right: 20px; font-size: 30px; }
         }
         
         footer { 
@@ -218,13 +221,20 @@
             var lightbox = document.getElementById("myLightbox");
             var lightboxImg = document.getElementById("lightboxImg");
             
-            // Tıklanan resmin kaynağını büyük pencereye aktar
+            // Resmi göster ve Flexbox ile ortala
             lightbox.style.display = "flex";
             lightboxImg.src = element.src;
+            
+            // Sayfanın arkada kaymasını engelle
+            document.body.style.overflow = "hidden";
         }
 
         function closeLightbox() {
-            document.getElementById("myLightbox").style.display = "none";
+            var lightbox = document.getElementById("myLightbox");
+            lightbox.style.display = "none";
+            
+            // Sayfa kaydırmayı tekrar aç
+            document.body.style.overflow = "auto";
         }
 
         // --- DİL DEĞİŞTİRME ---

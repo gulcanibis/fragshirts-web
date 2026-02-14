@@ -64,15 +64,14 @@
         }
 
         /* İÇERİK */
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; } /* Genişliği artırdım */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         
         .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
         .project-desc { color: #4b5563; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
 
-        /* --- FOTOĞRAF GALERİSİ (4'LÜ YAN YANA) --- */
+        /* --- FOTOĞRAF GALERİSİ (4'LÜ) --- */
         .gallery {
             display: grid;
-            /* BURASI DEĞİŞTİ: 4 tane eşit sütun oluşturur */
             grid-template-columns: repeat(4, 1fr); 
             gap: 20px; 
         }
@@ -85,6 +84,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--border);
             transition: 0.3s;
+            cursor: zoom-in; /* Üzerine gelince büyüteç çıksın */
         }
 
         .gallery img:hover {
@@ -93,17 +93,65 @@
             z-index: 10;
         }
 
-        /* MOBİL UYUMLULUK */
-        @media (max-width: 1024px) {
-            .gallery {
-                grid-template-columns: repeat(2, 1fr); /* Tablette 2'li olsun */
-            }
+        /* --- LIGHTBOX (BÜYÜTME PENCERESİ) STİLLERİ --- */
+        .lightbox {
+            display: none; /* Başlangıçta gizli */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8); /* Arka planı karart */
+            backdrop-filter: blur(10px); /* ARKAYI BULANIKLAŞTIRAN KOD */
+            justify-content: center;
+            align-items: center;
         }
 
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            animation: zoom 0.3s; /* Açılma animasyonu */
+        }
+
+        /* Kapatma Butonu (X) */
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .close:hover, .close:focus {
+            color: var(--primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)} 
+            to {transform:scale(1)}
+        }
+
+        /* MOBİL UYUMLULUK */
+        @media (max-width: 1024px) {
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 600px) {
-            .gallery {
-                grid-template-columns: 1fr; /* Telefondan tek sütun (alt alta) */
-            }
+            .gallery { grid-template-columns: 1fr; }
+            .lightbox-content { width: 95%; } /* Mobilde tam ekran olsun */
         }
         
         footer { 
@@ -147,19 +195,39 @@
         </div>
 
         <div class="gallery">
-            <img src="0,.png" alt="Görünüm 1">
-            <img src="1,.png" alt="Görünüm 2">
-            <img src="2,.png" alt="Görünüm 3">
-            <img src="3,.png" alt="Görünüm 4">
-            <img src="4,.png" alt="Görünüm 5">
-            <img src="5,.png" alt="Görünüm 6">
-            <img src="6,.png" alt="Görünüm 7">
+            <img src="0,.png" alt="Görünüm 1" onclick="openLightbox(this)">
+            <img src="1,.png" alt="Görünüm 2" onclick="openLightbox(this)">
+            <img src="2,.png" alt="Görünüm 3" onclick="openLightbox(this)">
+            <img src="3,.png" alt="Görünüm 4" onclick="openLightbox(this)">
+            <img src="4,.png" alt="Görünüm 5" onclick="openLightbox(this)">
+            <img src="5,.png" alt="Görünüm 6" onclick="openLightbox(this)">
+            <img src="6,.png" alt="Görünüm 7" onclick="openLightbox(this)">
         </div>
+    </div>
+
+    <div id="myLightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
     </div>
 
     <footer>&copy; 2026 Fragshirts.</footer>
 
     <script>
+        // --- LIGHTBOX FONKSİYONLARI ---
+        function openLightbox(element) {
+            var lightbox = document.getElementById("myLightbox");
+            var lightboxImg = document.getElementById("lightboxImg");
+            
+            // Tıklanan resmin kaynağını büyük pencereye aktar
+            lightbox.style.display = "flex";
+            lightboxImg.src = element.src;
+        }
+
+        function closeLightbox() {
+            document.getElementById("myLightbox").style.display = "none";
+        }
+
+        // --- DİL DEĞİŞTİRME ---
         function setLanguage(lang) {
             const body = document.body;
             const btnTr = document.getElementById('btn-tr');

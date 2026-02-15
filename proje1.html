@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
-        /* --- RENK PALETİ --- */
+        /* --- YENİ RENK PALETİ --- */
         :root { 
             --primary: #EF4444;  
             --bg: #FAFAFA;       
@@ -72,28 +72,25 @@
         /* --- FOTOĞRAF GALERİSİ (DÜZELTİLDİ) --- */
         .gallery {
             display: grid;
+            /* Bilgisayarda 4 sütun */
             grid-template-columns: repeat(4, 1fr); 
+            /* Sütunlar hizalı olsun diye üstten hizalama */
+            align-items: start; 
             gap: 20px; 
         }
 
         .gallery img {
             width: 100%;
-            
-            /* ÖNEMLİ DÜZELTME: */
-            aspect-ratio: 3/4; /* Dikdörtgen çerçeve oranı (Portre) */
-            
-            /* 'cover' yerine 'contain' kullanıyoruz. */
-            /* Bu sayede resim kesilmez, olduğu gibi çerçevenin içine sığar. */
-            object-fit: contain; 
-            object-position: center;
-            
-            background-color: #fff; /* Resim sığarken boşluk kalırsa beyaz görünsün */
+            /* Yükseklik otomatik olsun, resmin kendi oranı korunsun */
+            height: auto; 
+            /* aspect-ratio ve object-fit'i kaldırdık */
             
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--border);
             transition: 0.3s;
             cursor: zoom-in;
+            display: block; /* Alt boşluk oluşmasını engeller */
         }
 
         .gallery img:hover {
@@ -123,12 +120,17 @@
             display: block;
             width: auto;
             height: auto;
-            max-width: 95%; /* Mobilde kenarlara taşmasın */
-            max-height: 90vh; /* Yükseklik taşmasın */
+            
+            /* Resim ekrana sığsın ama oranı bozulmasın */
+            max-width: 95%; 
+            max-height: 90vh; 
+            
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(255,255,255,0.1);
             animation: zoom 0.3s;
-            object-fit: contain; /* Büyük hali de tam sığsın */
+            
+            /* Beyaz boşluk olmaması için contain yerine auto davranmalı */
+            object-fit: contain; 
         }
 
         .close {

@@ -171,7 +171,7 @@
         }
         .view-btn:hover { background: var(--primary); color: #fff; }
 
-        /* --- FOOTER & SOSYAL MEDYA --- */
+        /* --- FOOTER & SOSYAL MEDYA (GÜNCELLENDİ) --- */
         footer { 
             text-align: center; 
             padding: 40px 20px; 
@@ -194,7 +194,7 @@
             width: 40px; 
             height: 40px; 
             border-radius: 50%;
-            background-color: #fff;
+            background-color: var(--bg); /* Arka plan site rengi (#FAFAFA) yapıldı */
             border: 1px solid var(--border);
             transition: all 0.3s ease;
             overflow: hidden; 
@@ -202,8 +202,8 @@
 
         /* İkon Resmi Ayarları */
         .social-link img {
-            width: 20px;  
-            height: 20px; 
+            width: 16px;  /* İkon boyutu küçültüldü (20px -> 16px) */
+            height: 16px; 
             object-fit: contain;
             transition: 0.3s;
         }

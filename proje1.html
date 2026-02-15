@@ -7,21 +7,32 @@
     <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
-        /* --- YENİ RENK PALETİ --- */
+        /* --- RENK PALETİ --- */
         :root { 
-            --primary: #EF4444;  
-            --bg: #FAFAFA;       
-            --text: #1F2937;     
-            --border: #e5e7eb;   
+            --primary: #EF4444; 
+            --bg: #FAFAFA;      
+            --text: #1F2937;    
+            --card-bg: #F3F4F6; 
+            --border: #e5e7eb;  
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            overflow-x: hidden; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         a { text-decoration: none; color: inherit; }
 
         /* --- DİL SİSTEMİ --- */
-        .lang-en { display: none; }
-        body.english-mode .lang-tr { display: none; }
-        body.english-mode .lang-en { display: block; }
+        .lang-en { display: none; } 
+        body.english-mode .lang-tr { display: none; } 
+        body.english-mode .lang-en { display: block; } 
 
         /* HEADER */
         header { 
@@ -69,7 +80,7 @@
         .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
         .project-desc { color: #4b5563; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
 
-        /* --- FOTOĞRAF GALERİSİ (4'LÜ) --- */
+        /* --- FOTOĞRAF GALERİSİ (DÜZELTİLDİ) --- */
         .gallery {
             display: grid;
             grid-template-columns: repeat(4, 1fr); 
@@ -78,14 +89,20 @@
 
         .gallery img {
             width: 100%;
-            height: 250px; /* Sabit yükseklik verdim ki hepsi hizalı dursun */
+            /* ÖNEMLİ DEĞİŞİKLİK: Sabit yükseklik yerine oran verdim */
+            /* Bu sayede resimler hem mobilde hem pcde düzgün bir dikdörtgen olur */
+            aspect-ratio: 4/5; 
+            
             object-fit: cover;
+            /* Resim kesilirse yukarıyı (kafayı/yakayı) göstersin, aşağıyı kessin */
+            object-position: top; 
+            
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--border);
             transition: 0.3s;
             cursor: zoom-in;
-            max-width: 100%; /* Resimlerin taşmasını önler */
+            max-width: 100%; 
         }
 
         .gallery img:hover {
@@ -94,20 +111,18 @@
             z-index: 10;
         }
 
-        /* --- LIGHTBOX (BÜYÜTME PENCERESİ - DÜZELTİLDİ) --- */
+        /* --- LIGHTBOX (BÜYÜTME PENCERESİ) --- */
         .lightbox {
-            display: none; /* JS ile flex yapılacak */
+            display: none; 
             position: fixed;
-            z-index: 2000; /* En üstte olması için */
+            z-index: 2000; 
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Taşmayı engelle */
-            background-color: rgba(0, 0, 0, 0.9); /* Arka planı iyice karart */
-            backdrop-filter: blur(8px); /* Bulanıklık */
-            
-            /* MERKEZLEME KODLARI */
+            overflow: hidden; 
+            background-color: rgba(0, 0, 0, 0.9); 
+            backdrop-filter: blur(8px); 
             justify-content: center;
             align-items: center;
         }
@@ -117,17 +132,13 @@
             display: block;
             width: auto;
             height: auto;
-            
-            /* RESMİN EKRANDAN TAŞMASINI ENGELLEYEN KOD */
             max-width: 90%;
             max-height: 90vh; 
-            
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(255,255,255,0.1);
             animation: zoom 0.3s;
         }
 
-        /* Kapatma Butonu (X) */
         .close {
             position: absolute;
             top: 20px;
@@ -139,9 +150,7 @@
             cursor: pointer;
             z-index: 2001;
         }
-        .close:hover {
-            color: var(--primary);
-        }
+        .close:hover { color: var(--primary); }
 
         @keyframes zoom {
             from {transform:scale(0.8); opacity: 0;} 
@@ -153,10 +162,11 @@
             .gallery { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 600px) {
-            .gallery { grid-template-columns: 1fr; }
+            .gallery { 
+                grid-template-columns: 1fr; /* Mobilde tek sıra */
+            }
             .lightbox-content { max-width: 95%; }
             .close { top: 10px; right: 20px; font-size: 30px; }
-            /* Mobilde proje başlığını biraz küçültelim */
             .project-title { font-size: 2rem; }
         }
         
@@ -224,11 +234,9 @@
             var lightbox = document.getElementById("myLightbox");
             var lightboxImg = document.getElementById("lightboxImg");
             
-            // Resmi göster ve Flexbox ile ortala
             lightbox.style.display = "flex";
             lightboxImg.src = element.src;
             
-            // Sayfanın arkada kaymasını engelle
             document.body.style.overflow = "hidden";
         }
 
@@ -236,7 +244,6 @@
             var lightbox = document.getElementById("myLightbox");
             lightbox.style.display = "none";
             
-            // Sayfa kaydırmayı tekrar aç
             document.body.style.overflow = "auto";
         }
 

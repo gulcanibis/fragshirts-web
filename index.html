@@ -64,13 +64,12 @@
         }
 
         /* SLIDER (ÖNE ÇIKANLAR) */
-        /* Arka plan rengi siyah yerine sitenin rengi yapıldı */
         .featured-section { 
             position: relative; 
             width: 100%; 
             height: 70vh; 
             overflow: hidden; 
-            background-color: var(--bg); /* SİYAH KALDIRILDI, BEYAZ TON GELDİ */
+            background-color: var(--bg);
         }
         
         .slide {
@@ -104,14 +103,12 @@
         }
         .slide-btn:hover { background-color: #dc2626; }
 
-        /* OK TUŞLARI (GÜNCELLENDİ: KIRMIZI OKLAR) */
+        /* OK TUŞLARI */
         .arrow-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            /* Arka plan hafif beyaz yapıldı ki kırmızı ok görünsün */
             background-color: rgba(255, 255, 255, 0.8); 
-            /* Ok rengi kırmızı yapıldı */
             color: var(--primary); 
             border: 1px solid #ddd;
             cursor: pointer;
@@ -129,7 +126,7 @@
         }
         .arrow-btn:hover { 
             background-color: var(--primary); 
-            color: #fff; /* Üzerine gelince ok beyaz, zemin kırmızı olsun */
+            color: #fff; 
         }
         .prev { left: 20px; }
         .next { right: 20px; }
@@ -174,7 +171,7 @@
         }
         .view-btn:hover { background: var(--primary); color: #fff; }
 
-        /* --- FOOTER & SOSYAL MEDYA (GÜNCELLENDİ) --- */
+        /* --- FOOTER & SOSYAL MEDYA --- */
         footer { 
             text-align: center; 
             padding: 40px 20px; 
@@ -194,18 +191,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px; /* Daire Genişliği */
-            height: 40px; /* Daire Yüksekliği */
+            width: 40px; 
+            height: 40px; 
             border-radius: 50%;
             background-color: #fff;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
-            overflow: hidden; /* Resim taşmasın */
+            overflow: hidden; 
         }
 
         /* İkon Resmi Ayarları */
         .social-link img {
-            width: 20px;  /* İkon boyutu */
+            width: 20px;  
             height: 20px; 
             object-fit: contain;
             transition: 0.3s;
@@ -217,9 +214,8 @@
             transform: translateY(-3px);
         }
         
-        /* Hover olunca ikonun rengi değişsin istersen (PNG ise filter gerekir) */
         .social-link:hover img {
-            filter: brightness(0) invert(1); /* İkonu beyaz yapar */
+            filter: brightness(0) invert(1); 
         }
 
         .copyright { color: #6b7280; font-size: 0.85rem; }
@@ -357,15 +353,15 @@
     <footer>
         <div class="social-icons">
             <a href="https://instagram.com/fragshirts" target="_blank" class="social-link" aria-label="Instagram">
-                <img src="icon-instagram.png" alt="Instagram">
+                <img src="icon-instagram.jpeg" alt="Instagram">
             </a>
 
             <a href="https://twitter.com/fragshirts" target="_blank" class="social-link" aria-label="X (Twitter)">
-                <img src="icon-twitter.png" alt="Twitter">
+                <img src="icon-twitter.jpeg" alt="Twitter">
             </a>
 
             <a href="https://www.behance.net/kuzeykalyoncu" target="_blank" class="social-link" aria-label="Behance">
-                <img src="icon-behance.png" alt="Behance">
+                <img src="icon-behance.jpeg" alt="Behance">
             </a>
         </div>
         <p class="copyright">&copy; 2026 Fragshirts. All rights reserved.</p>

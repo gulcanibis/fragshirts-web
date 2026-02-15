@@ -63,23 +63,23 @@
             border-color: var(--primary); 
         }
 
-        /* İÇERİK (Genişlik 1200px yapıldı) */
+        /* İÇERİK */
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
         
         .project-title { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
         .project-desc { color: #4b5563; line-height: 1.6; margin-bottom: 40px; font-size: 1.1rem; }
 
-        /* --- FOTOĞRAF GALERİSİ (GRID SİSTEMİ) --- */
+        /* --- FOTOĞRAF GALERİSİ --- */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 Sütunlu yapı */
+            grid-template-columns: repeat(4, 1fr); 
             align-items: start; 
             gap: 20px; 
         }
 
         .gallery img {
             width: 100%;
-            height: auto; /* Orijinal oranlarını koru, boşluk bırakma */
+            height: auto; /* Resimler kesilmez ve boşluk kalmaz */
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--border);
@@ -147,7 +147,7 @@
         }
         @media (max-width: 600px) {
             .gallery { 
-                grid-template-columns: 1fr; /* Mobilde tek sütun */
+                grid-template-columns: 1fr; 
             }
             .close { top: 10px; right: 20px; font-size: 30px; }
             .project-title { font-size: 2rem; }
@@ -186,10 +186,10 @@
 
         <div class="project-desc">
             <p class="lang-tr">
-                -
+                Forma, Rossoneri'nin klasik mirasını Milano'nun Gotik mimarisiyle birleştiriyor. Uzaktan bakıldığında, 1899'dan beri rakiplerine korku salan efsanevi kırmızı ve siyah çizgiler görülüyor. Ancak yaklaştıkça, formanın gerçek derinliği ortaya çıkıyor. Çizgilerin içine gizlenmiş, yukarı doğru incelen doğrusal grafikler, Duomo Katedrali'nin gökyüzüne uzanan kulelerini simgeliyor.
             </p>
             <p class="lang-en">
-                -
+                The jersey combines the classic heritage of the Rossoneri with the Gothic architecture of Milan. From a distance, the legendary red and black stripes that have struck fear into their rivals since 1899 are visible. But as you get closer, the true depth of the jersey is revealed. Hidden within the stripes, the upward-tapering linear graphics symbolize the towering spires of the Duomo Cathedral.
             </p>
         </div>
 
@@ -209,7 +209,7 @@
     <footer>&copy; 2026 Fragshirts.</footer>
 
     <script>
-        // --- LIGHTBOX FONKSİYONLARI EKLENDİ ---
+        // --- LIGHTBOX FONKSİYONLARI ---
         function openLightbox(element) {
             var lightbox = document.getElementById("myLightbox");
             var lightboxImg = document.getElementById("lightboxImg");

@@ -85,6 +85,7 @@
             border: 1px solid var(--border);
             transition: 0.3s;
             cursor: zoom-in;
+            max-width: 100%; /* Resimlerin taşmasını önler */
         }
 
         .gallery img:hover {
@@ -155,6 +156,8 @@
             .gallery { grid-template-columns: 1fr; }
             .lightbox-content { max-width: 95%; }
             .close { top: 10px; right: 20px; font-size: 30px; }
+            /* Mobilde proje başlığını biraz küçültelim */
+            .project-title { font-size: 2rem; }
         }
         
         footer { 

@@ -9,30 +9,19 @@
     <style>
         /* --- RENK PALETİ --- */
         :root { 
-            --primary: #EF4444; 
-            --bg: #FAFAFA;      
-            --text: #1F2937;    
-            --card-bg: #F3F4F6; 
-            --border: #e5e7eb;  
+            --primary: #EF4444;  
+            --bg: #FAFAFA;       
+            --text: #1F2937;     
+            --border: #e5e7eb;   
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            overflow-x: hidden; 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin:0; }
         a { text-decoration: none; color: inherit; }
 
         /* --- DİL SİSTEMİ --- */
-        .lang-en { display: none; } 
-        body.english-mode .lang-tr { display: none; } 
-        body.english-mode .lang-en { display: block; } 
+        .lang-en { display: none; }
+        body.english-mode .lang-tr { display: none; }
+        body.english-mode .lang-en { display: block; }
 
         /* HEADER */
         header { 
@@ -89,20 +78,22 @@
 
         .gallery img {
             width: 100%;
-            /* ÖNEMLİ DEĞİŞİKLİK: Sabit yükseklik yerine oran verdim */
-            /* Bu sayede resimler hem mobilde hem pcde düzgün bir dikdörtgen olur */
-            aspect-ratio: 4/5; 
             
-            object-fit: cover;
-            /* Resim kesilirse yukarıyı (kafayı/yakayı) göstersin, aşağıyı kessin */
-            object-position: top; 
+            /* ÖNEMLİ DÜZELTME: */
+            aspect-ratio: 3/4; /* Dikdörtgen çerçeve oranı (Portre) */
+            
+            /* 'cover' yerine 'contain' kullanıyoruz. */
+            /* Bu sayede resim kesilmez, olduğu gibi çerçevenin içine sığar. */
+            object-fit: contain; 
+            object-position: center;
+            
+            background-color: #fff; /* Resim sığarken boşluk kalırsa beyaz görünsün */
             
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border: 1px solid var(--border);
             transition: 0.3s;
             cursor: zoom-in;
-            max-width: 100%; 
         }
 
         .gallery img:hover {
@@ -132,11 +123,12 @@
             display: block;
             width: auto;
             height: auto;
-            max-width: 90%;
-            max-height: 90vh; 
+            max-width: 95%; /* Mobilde kenarlara taşmasın */
+            max-height: 90vh; /* Yükseklik taşmasın */
             border-radius: 8px;
             box-shadow: 0 0 50px rgba(255,255,255,0.1);
             animation: zoom 0.3s;
+            object-fit: contain; /* Büyük hali de tam sığsın */
         }
 
         .close {
@@ -163,9 +155,8 @@
         }
         @media (max-width: 600px) {
             .gallery { 
-                grid-template-columns: 1fr; /* Mobilde tek sıra */
+                grid-template-columns: 1fr; /* Mobilde tek sütun */
             }
-            .lightbox-content { max-width: 95%; }
             .close { top: 10px; right: 20px; font-size: 30px; }
             .project-title { font-size: 2rem; }
         }

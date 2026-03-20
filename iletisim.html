@@ -122,20 +122,24 @@
             flex-direction: column;
             align-items: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            color: var(--text); /* İkon rengi için */
         }
 
         .contact-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.1); /* Kırmızımsı hafif gölge */
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.1); 
         }
 
-        .contact-card img {
-            width: 40px;
-            height: 40px;
+        /* Kartlardaki İkonların CSS Ayarı */
+        .contact-card svg.contact-icon {
             margin-bottom: 15px;
-            object-fit: contain;
             transition: 0.3s;
+        }
+        
+        /* Kartın üzerine gelince ikon kırmızı olsun */
+        .contact-card:hover svg.contact-icon {
+            color: var(--primary);
         }
 
         .contact-card h3 {
@@ -175,13 +179,12 @@
             background-color: var(--bg); 
             border: 1px solid var(--border);
             transition: all 0.3s ease;
-            overflow: hidden; 
+            color: var(--text); /* İkon varsayılan rengi */
         }
 
-        .social-link img {
+        .social-link svg {
             width: 18px;  
             height: 18px; 
-            object-fit: contain;
             transition: 0.3s;
         }
 
@@ -189,10 +192,7 @@
             background-color: var(--primary);
             border-color: var(--primary);
             transform: translateY(-3px);
-        }
-        
-        .social-link:hover img {
-            filter: brightness(0) invert(1); 
+            color: #fff; /* Üzerine gelince ikon beyaz olur */
         }
 
         .copyright { color: #6b7280; font-size: 0.85rem; }
@@ -234,7 +234,7 @@
 
         <div class="contact-links">
             <a href="mailto:info@fragshirts.com" class="contact-card">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1F2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:15px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
@@ -243,19 +243,33 @@
             </a>
 
             <a href="https://instagram.com/fragshirts" target="_blank" class="contact-card">
-                <img src="icon-instagram.jpeg" alt="Instagram">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
                 <h3>Instagram</h3>
                 <p>@fragshirts</p>
             </a>
 
             <a href="https://twitter.com/fragshirts" target="_blank" class="contact-card">
-                <img src="icon-twitter.jpeg" alt="Twitter">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                </svg>
                 <h3>X (Twitter)</h3>
                 <p>@fragshirts</p>
             </a>
 
             <a href="https://www.behance.net/kuzeykalyoncu" target="_blank" class="contact-card">
-                <img src="icon-behance.jpeg" alt="Behance">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5" />
+                    <path d="M3 12l4.5 0" />
+                    <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.64 1" />
+                    <path d="M16 6l3 0" />
+                </svg>
                 <h3>Behance</h3>
                 <p>kuzeykalyoncu</p>
             </a>
@@ -265,15 +279,29 @@
     <footer>
         <div class="social-icons">
             <a href="https://instagram.com/fragshirts" target="_blank" class="social-link" aria-label="Instagram">
-                <img src="icon-instagram.jpeg" alt="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
             </a>
 
-            <a href="https://twitter.com/fragshirts" target="_blank" class="social-link" aria-label="X (Twitter)">
-                <img src="icon-twitter.jpeg" alt="Twitter">
+            <a href="https://twitter.com/fragshirts" target="_blank" class="social-link" aria-label="X">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                </svg>
             </a>
 
             <a href="https://www.behance.net/kuzeykalyoncu" target="_blank" class="social-link" aria-label="Behance">
-                <img src="icon-behance.jpeg" alt="Behance">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 18v-12h4.5a3 3 0 0 1 0 6a3 3 0 0 1 0 6h-4.5" />
+                    <path d="M3 12l4.5 0" />
+                    <path d="M14 13h7a3.5 3.5 0 0 0 -7 0v2a3.5 3.5 0 0 0 6.64 1" />
+                    <path d="M16 6l3 0" />
+                </svg>
             </a>
         </div>
         <p class="copyright">&copy; 2026 Fragshirts. All rights reserved.</p>

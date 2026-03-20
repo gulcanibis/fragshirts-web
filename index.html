@@ -26,7 +26,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative; /* Efektin düzgün çalışması için eklendi */
+            position: relative; /* Efektin çalışması için */
         }
 
         a { text-decoration: none; color: inherit; }
@@ -36,25 +36,42 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- FAREYİ TAKİP EDEN DİKEY DİKDÖRTGEN IŞIK EFEKTİ --- */
+        /* --- MODERN DİKEY TARAYICI (SCANNER) IŞIK EFEKTİ --- */
         .mouse-glow-bg {
             position: fixed;
             top: 0;
             left: 0;
-            width: 500px; /* Dikey ışığın genişliği */
-            height: 100vh; /* Ekranı yukarıdan aşağıya tam kaplaması için */
-            pointer-events: none; /* Işığın tıklamaları engellememesi için */
+            width: 300px; /* Işık sütununun genişliği */
+            height: 100vh; /* Ekranı tam kaplaması için */
+            pointer-events: none; /* İçeriklere tıklamayı engellememesi için */
             z-index: 1; /* Arka planda kalması için */
             
-            /* Fareyi sadece yatayda (X ekseninde) takip eder, ortalamak için -50% kullanıyoruz */
-            transform: translateX(calc(var(--cursor-x, -100%) - 50%));
+            /* Fareyi sadece yatay (X) eksende merkezleyerek takip eder */
+            transform: translateX(calc(var(--cursor-x, -1000px) - 150px));
             
-            /* Kenarları yumuşak, ortası hafif belirgin dikey kırmızı ışık sütunu */
-            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.3), transparent);
-            transition: transform 0.1s ease-out; /* Farenin arkasından yumuşakça süzülmesi için */
+            /* Üstten ve alttan yumuşakça kaybolan, ortası kırmızı ışık */
+            background: linear-gradient(
+                to bottom, 
+                rgba(250,250,250,0) 0%, 
+                rgba(239, 68, 68, 0.05) 15%, 
+                rgba(239, 68, 68, 0.15) 50%, 
+                rgba(239, 68, 68, 0.05) 85%, 
+                rgba(250,250,250,0) 100%
+            );
+            
+            /* Dikdörtgen hissini veren zarif sağ-sol kenar çizgileri */
+            border-left: 1px solid rgba(239, 68, 68, 0.25);
+            border-right: 1px solid rgba(239, 68, 68, 0.25);
+            
+            /* Etrafa yayılan hafif kırmızı dış parlama */
+            box-shadow: 0 0 60px rgba(239, 68, 68, 0.1);
+            
+            /* Fareyi robotik değil, yağ gibi akan bir yumuşaklıkla takip etmesi için */
+            transition: transform 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+            will-change: transform;
         }
 
-        /* İçeriklerin ışığın üstünde kalması için Z-index ayarı eklendi */
+        /* İçeriklerin ışığın üstünde net görünmesi için */
         header, .featured-section, .section-header, .grid-container, footer {
             position: relative;
             z-index: 2;
@@ -74,11 +91,11 @@
         
         .logo-img { height: 50px; display: block; }
 
-        /* --- YENİ EKLENEN HEADER SAĞ KISIM (İLETİŞİM + DİL) --- */
+        /* HEADER SAĞ KISIM */
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px; /* Buton ile dil seçeneği arası boşluk */
+            gap: 20px; 
         }
 
         .contact-btn {
@@ -113,7 +130,7 @@
             width: 100%; 
             height: 70vh; 
             overflow: hidden; 
-            background-color: transparent; /* Işığın arkadan görünmesi için bg güncellendi */
+            background-color: transparent; 
         }
         
         .slide {
@@ -207,7 +224,6 @@
         }
         .kit-item:hover .kit-info { opacity: 1; }
         
-        /* Font boyutunu uzun isimler sığsın diye ayarladık */
         .kit-info h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--text); font-weight: bold; line-height: 1.4; padding: 0 10px; }
         
         .view-btn { 
@@ -270,7 +286,7 @@
             .slide-content h2 { font-size: 1.5rem; }
             .arrow-btn { width: 35px; height: 35px; font-size: 18px; }
             .header-right { gap: 10px; }
-            .mouse-glow-bg { display: none; } /* Mobilde ekranı daraltmamak ve kasma yapmamak için gizlendi */
+            .mouse-glow-bg { display: none; } /* Mobilde gizli kalır */
         }
     </style>
 </head>
@@ -311,7 +327,7 @@
             </div>
         </div>
 
-        <div class="slide" style="background-image: url('0,.png');">
+        <div class="slide" style="background-image: url('4,.png');">
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">Trabzonspor x Adidas</span>
@@ -324,7 +340,7 @@
             </div>
         </div>
 
-        <div class="slide" style="background-image: url('0.png');">
+        <div class="slide" style="background-image: url('3.png');">
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">FC Red Bull Salzburg x Nike</span>
@@ -362,7 +378,7 @@
         </a>
 
         <a href="anasayfa2.html" class="kit-item">
-            <img src="0,.png" class="kit-img">
+            <img src="4,.png" class="kit-img">
             <div class="kit-info">
                 <h3>
                     <span class="lang-tr">Trabzonspor x adidas</span>
@@ -373,7 +389,7 @@
         </a>
 
         <a href="anasayfa3.html" class="kit-item">
-            <img src="0.png" class="kit-img">
+            <img src="3.png" class="kit-img">
             <div class="kit-info">
                 <h3>
                     <span class="lang-tr">FC Red Bull Salzburg x Nike</span>
@@ -468,7 +484,7 @@
     </footer>
 
     <script>
-        // --- YENİ EKLENEN: FAREYİ TAKİP EDEN IŞIK JS KODU ---
+        // JS - Fare Takibi
         document.addEventListener('mousemove', function(e) {
             document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
             document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');

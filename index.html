@@ -49,6 +49,25 @@
         
         .logo-img { height: 50px; display: block; }
 
+        /* --- YENİ EKLENEN HEADER SAĞ KISIM (İLETİŞİM + DİL) --- */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Buton ile dil seçeneği arası boşluk */
+        }
+
+        .contact-btn {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .contact-btn:hover {
+            color: var(--primary);
+        }
+
         /* DİL BUTONLARI */
         .lang-switch { display: flex; gap: 10px; }
         .lang-btn {
@@ -163,7 +182,6 @@
         }
         .kit-item:hover .kit-info { opacity: 1; }
         
-        /* Font boyutunu uzun isimler sığsın diye ayarladık */
         .kit-info h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--text); font-weight: bold; line-height: 1.4; padding: 0 10px; }
         
         .view-btn { 
@@ -225,6 +243,8 @@
             .featured-section { height: 50vh; } 
             .slide-content h2 { font-size: 1.5rem; }
             .arrow-btn { width: 35px; height: 35px; font-size: 18px; }
+            /* Mobilde alan daralınca yazılar iç içe girmesin diye boşluğu kıstık */
+            .header-right { gap: 10px; }
         }
     </style>
 </head>
@@ -233,9 +253,16 @@
     <header>
         <a href="/"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
         
-        <div class="lang-switch">
-            <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
-            <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+        <div class="header-right">
+            <a href="iletisim.html" class="contact-btn">
+                <span class="lang-tr">İletişim</span>
+                <span class="lang-en">Contact</span>
+            </a>
+
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
+                <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+            </div>
         </div>
     </header>
 

@@ -36,17 +36,22 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- YENİ EKLENEN: FAREYİ TAKİP EDEN ARKA PLAN IŞIĞI --- */
+        /* --- FAREYİ TAKİP EDEN DİKEY DİKDÖRTGEN IŞIK EFEKTİ --- */
         .mouse-glow-bg {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 500px; /* Dikey ışığın genişliği */
+            height: 100vh; /* Ekranı yukarıdan aşağıya tam kaplaması için */
             pointer-events: none; /* Işığın tıklamaları engellememesi için */
             z-index: 1; /* Arka planda kalması için */
-            background: radial-gradient(circle 600px at var(--cursor-x, -100%) var(--cursor-y, -100%), rgba(239, 68, 68, 0.3), transparent 50%);
-            transition: background 0.1s ease;
+            
+            /* Fareyi sadece yatayda (X ekseninde) takip eder, ortalamak için -50% kullanıyoruz */
+            transform: translateX(calc(var(--cursor-x, -100%) - 50%));
+            
+            /* Kenarları yumuşak, ortası hafif belirgin dikey kırmızı ışık sütunu */
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.12), transparent);
+            transition: transform 0.1s ease-out; /* Farenin arkasından yumuşakça süzülmesi için */
         }
 
         /* İçeriklerin ışığın üstünde kalması için Z-index ayarı eklendi */
@@ -264,6 +269,8 @@
             .featured-section { height: 50vh; } 
             .slide-content h2 { font-size: 1.5rem; }
             .arrow-btn { width: 35px; height: 35px; font-size: 18px; }
+            .header-right { gap: 10px; }
+            .mouse-glow-bg { display: none; } /* Mobilde ekranı daraltmamak ve kasma yapmamak için gizlendi */
         }
     </style>
 </head>
@@ -467,7 +474,6 @@
             document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
         });
 
-        // Mevcut kodların...
         let slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         let slideInterval = setInterval(autoSlide, 4000);

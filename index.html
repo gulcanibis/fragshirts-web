@@ -36,9 +36,8 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- YENİ: SİHİRLİ/DAĞINIK DUMAN (BLOB) SİSTEMİ (REFERANS GİBİ) --- */
-        /* Bu container, arkadaki lekeleri tutar */
-        .magic-glow-container {
+        /* --- YENİ: SÜREKLİ HAREKET EDEN 3D DALGALAR (AMBIENT WAVES) --- */
+        .ambient-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -46,71 +45,59 @@
             height: 100vh;
             pointer-events: none; /* Tıklamayı engellemez */
             z-index: 1; /* Arka planda kalır */
-            overflow: hidden; /* Dışarı taşan parlaklıkları keser */
+            overflow: hidden; 
         }
 
-        /* Tüm lekelerin ortak özellikleri */
-        .magic-blob {
+        .wave {
             position: absolute;
-            top: 50%; left: 50%; /* Tümünü merkezden başlatır, JS ile derinlik verilir */
-            border-radius: 50%; /* Temel daire, blur ile dağınıklaşır */
-            opacity: 0.2; /* Düşük opaklık, duman hissi için */
-            
-            /* AŞIRI YÜKSEK BLUR - "Dağınık" hissi veren ana büyüdür */
-            filter: blur(15vw); 
-            
-            /* Fareyi robotik değil, yağ gibi süzülerek takip etmesi için */
-            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            border-radius: 50%;
+            /* Aşırı bulanıklık ile duman/dalga hissi yaratır */
+            filter: blur(120px);
+            opacity: 0.15; /* Sitenin okunabilirliğini bozmaması için şeffaf */
+            /* Animasyonların kasmaması için donanım hızlandırma */
             will-change: transform;
+            transform: translateZ(0); 
         }
 
-        /* Bireysel Renkler ve 3 Boyutlu Derinlik (Hızlar) */
-        
-        /* Kırmızı Blob - En az hareket eder, en derin hissi verir */
-        .blob-red {
-            background: #EF4444;
+        /* 1. Dalga: Sol üstten merkeze doğru */
+        .wave-1 {
+            background: #EF4444; /* Ana kırmızı */
+            width: 60vw; height: 60vw;
+            top: -20%; left: -10%;
+            animation: float1 15s ease-in-out infinite alternate;
+        }
+
+        /* 2. Dalga: Sağ alttan merkeze doğru */
+        .wave-2 {
+            background: #B91C1C; /* Daha koyu kırmızı (Derinlik hissi) */
+            width: 50vw; height: 50vw;
+            bottom: -20%; right: -10%;
+            animation: float2 20s ease-in-out infinite alternate;
+        }
+
+        /* 3. Dalga: Merkezde dolaşan açık renk */
+        .wave-3 {
+            background: #F87171; /* Daha açık kırmızı/mercan (Üstte uçuşma hissi) */
             width: 40vw; height: 40vw;
-            margin-top: -10vh; margin-left: -20vw; /* Başlangıç sapması */
-            /* moves medium */
-            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
+            top: 30%; left: 40%;
+            animation: float3 18s ease-in-out infinite alternate;
         }
 
-        /* Mavi Blob - Çok hareket eder, en yakın hissi verir */
-        .blob-blue {
-            background: #0EA5E9;
-            width: 30vw; height: 30vw;
-            margin-top: 20vh; margin-left: 20vw;
-            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
-            transition-duration: 0.4s; /* Daha hızlı takip eder */
+        /* Dalga Animasyonları (Keyframes) */
+        @keyframes float1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(15vw, 15vh) scale(1.1); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1.1); }
+            100% { transform: translate(-20vw, -10vh) scale(1); }
+        }
+        @keyframes float3 {
+            0% { transform: translate(0, 0) scale(0.9); }
+            100% { transform: translate(-15vw, 15vh) scale(1.2); }
         }
 
-        /* Altın Blob - Orta hareket */
-        .blob-gold {
-            background: #F59E0B;
-            width: 25vw; height: 25vw;
-            margin-top: -30vh; margin-left: 10vw;
-            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
-            transition-duration: 0.5s;
-        }
-
-        /* Mor Blob - Orta hareket */
-        .blob-purple {
-            background: #8B5CF6;
-            width: 20vw; height: 20vw;
-            margin-top: 30vh; margin-left: -15vw;
-            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
-            transition-duration: 0.5s;
-        }
-
-        /* Kenarlarda tamamen kaybolması için hafif bir gölgeleme overlayi */
-        .magic-glow-container::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 30%, var(--bg) 90%);
-        }
-
-        /* İçeriklerin sihrin önünde kalması için */
+        /* İçeriklerin dalgaların önünde kalması için */
         header, .featured-section, .section-header, .grid-container, footer {
             position: relative;
             z-index: 2;
@@ -325,17 +312,17 @@
             .slide-content h2 { font-size: 1.5rem; }
             .arrow-btn { width: 35px; height: 35px; font-size: 18px; }
             .header-right { gap: 10px; }
-            .magic-glow-container { display: none; } /* Mobilde performans için gizlendi */
+            /* Mobilde animasyonları kasmaması için istersen bu bloğu yoruma alabilirsin, 
+               şu an mobilde de yavaşça dalgalanacak şekilde bıraktım */
         }
     </style>
 </head>
 <body class="turkish-mode">
 
-    <div class="magic-glow-container" id="magicGlowContainer">
-        <div class="magic-blob blob-red" data-speed="0.2"></div>
-        <div class="magic-blob blob-blue" data-speed="0.8"></div>
-        <div class="magic-blob blob-gold" data-speed="0.4"></div>
-        <div class="magic-blob blob-purple" data-speed="0.6"></div>
+    <div class="ambient-bg">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
     </div>
 
     <header>
@@ -371,7 +358,7 @@
             </div>
         </div>
 
-        <div class="slide" style="background-image: url('0,.png');">
+        <div class="slide" style="background-image: url('4,.png');">
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">Trabzonspor x Adidas</span>
@@ -384,7 +371,7 @@
             </div>
         </div>
 
-        <div class="slide" style="background-image: url('0.png');">
+        <div class="slide" style="background-image: url('3.png');">
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">FC Red Bull Salzburg x Nike</span>
@@ -528,32 +515,9 @@
     </footer>
 
     <script>
-        // --- YENİ EKLENEN: SİHİRLİ DUMAN JS KODU (3B DERİNLİK HESABI) ---
-        const blobs = document.querySelectorAll('.magic-blob');
+        // Javascript'teki fare takibi kodu tamamen SİLİNDİ.
+        // Artık dalgalar CSS ile kendiliğinden sürekli hareket ediyor.
 
-        document.addEventListener('mousemove', function(e) {
-            // Fare koordinatlarını ekranın merkezine göre normalize et (-1 to 1)
-            const x = (e.clientX / window.innerWidth) * 2 - 1; // Merkezin solundaysa -, sağındaysa +
-            const y = (e.clientY / window.innerHeight) * 2 - 1; // Merkezin üstündeyse -, altındaysa +
-
-            // Her sihirli leke (blob) için 3 boyulu derinlik hesapla
-            blobs.forEach(blob => {
-                // data-speed niteliğinden hızı al (Kırmızı:0.2, Mavi:0.8 vb.)
-                const speed = blob.dataset.speed || 1; 
-                // Temel hareket çarpanı (piksel) - Ne kadar 'Uzak/Yakın' görüneceğini belirler
-                const multiplier = 60; 
-
-                // Hız niteliğine göre sihrin merkezden ne kadar sapacağını hesapla
-                const translateX = x * speed * multiplier;
-                const translateY = y * speed * multiplier;
-
-                // CSS'e özel koordinatları gönder, CSS translate() bunu kullanır
-                blob.style.setProperty('--blob-tx', translateX + 'px');
-                blob.style.setProperty('--blob-ty', translateY + 'px');
-            });
-        });
-
-        // Mevcut kodların...
         let slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         let slideInterval = setInterval(autoSlide, 4000);

@@ -26,7 +26,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative; /* Efektin düzgün çalışması için eklendi */
+            position: relative; /* Efektin çalışması için */
         }
 
         a { text-decoration: none; color: inherit; }
@@ -36,31 +36,81 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- YENİ: DAĞINIK/ORGANİK IŞIK EFEKTİ (REFERANS SİTEDEKİ GİBİ) --- */
-        .mouse-glow-bg {
+        /* --- YENİ: SİHİRLİ/DAĞINIK DUMAN (BLOB) SİSTEMİ (REFERANS GİBİ) --- */
+        /* Bu container, arkadaki lekeleri tutar */
+        .magic-glow-container {
             position: fixed;
             top: 0;
             left: 0;
-            width: 800px; /* Işığın genişliği */
-            height: 800px; /* Işığın yüksekliği */
-            pointer-events: none; /* İçeriklere tıklamayı engellemez */
-            z-index: 1; /* Arka planda kalması için */
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Tıklamayı engellemez */
+            z-index: 1; /* Arka planda kalır */
+            overflow: hidden; /* Dışarı taşan parlaklıkları keser */
+        }
+
+        /* Tüm lekelerin ortak özellikleri */
+        .magic-blob {
+            position: absolute;
+            top: 50%; left: 50%; /* Tümünü merkezden başlatır, JS ile derinlik verilir */
+            border-radius: 50%; /* Temel daire, blur ile dağınıklaşır */
+            opacity: 0.2; /* Düşük opaklık, duman hissi için */
             
-            /* Fareyi hem yatay (X) hem dikey (Y) eksende tam ortalayarak takip eder */
-            transform: translate(calc(var(--cursor-x, -1000px) - 50%), calc(var(--cursor-y, -1000px) - 50%));
+            /* AŞIRI YÜKSEK BLUR - "Dağınık" hissi veren ana büyüdür */
+            filter: blur(15vw); 
             
-            /* Dağınık, bulutsu ve yumuşak bir ışık geçişi */
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.18) 0%, rgba(239, 68, 68, 0.05) 40%, transparent 70%);
-            
-            /* Kenarları tamamen yok edip organik bir leke (blob) görünümü veren filtre */
-            filter: blur(60px);
-            
-            /* Farenin arkasından yağ gibi, hafif gecikmeli süzülmesi için */
-            transition: transform 0.6s cubic-bezier(0.1, 0, 0.1, 1);
+            /* Fareyi robotik değil, yağ gibi süzülerek takip etmesi için */
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
             will-change: transform;
         }
 
-        /* İçeriklerin ışığın üstünde kalması için Z-index ayarı eklendi */
+        /* Bireysel Renkler ve 3 Boyutlu Derinlik (Hızlar) */
+        
+        /* Kırmızı Blob - En az hareket eder, en derin hissi verir */
+        .blob-red {
+            background: #EF4444;
+            width: 40vw; height: 40vw;
+            margin-top: -10vh; margin-left: -20vw; /* Başlangıç sapması */
+            /* moves medium */
+            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
+        }
+
+        /* Mavi Blob - Çok hareket eder, en yakın hissi verir */
+        .blob-blue {
+            background: #0EA5E9;
+            width: 30vw; height: 30vw;
+            margin-top: 20vh; margin-left: 20vw;
+            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
+            transition-duration: 0.4s; /* Daha hızlı takip eder */
+        }
+
+        /* Altın Blob - Orta hareket */
+        .blob-gold {
+            background: #F59E0B;
+            width: 25vw; height: 25vw;
+            margin-top: -30vh; margin-left: 10vw;
+            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
+            transition-duration: 0.5s;
+        }
+
+        /* Mor Blob - Orta hareket */
+        .blob-purple {
+            background: #8B5CF6;
+            width: 20vw; height: 20vw;
+            margin-top: 30vh; margin-left: -15vw;
+            transform: translate(calc(var(--blob-tx, 0px) - 50%), calc(var(--blob-ty, 0px) - 50%));
+            transition-duration: 0.5s;
+        }
+
+        /* Kenarlarda tamamen kaybolması için hafif bir gölgeleme overlayi */
+        .magic-glow-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 30%, var(--bg) 90%);
+        }
+
+        /* İçeriklerin sihrin önünde kalması için */
         header, .featured-section, .section-header, .grid-container, footer {
             position: relative;
             z-index: 2;
@@ -275,13 +325,18 @@
             .slide-content h2 { font-size: 1.5rem; }
             .arrow-btn { width: 35px; height: 35px; font-size: 18px; }
             .header-right { gap: 10px; }
-            .mouse-glow-bg { display: none; } /* Mobilde performans için gizli */
+            .magic-glow-container { display: none; } /* Mobilde performans için gizlendi */
         }
     </style>
 </head>
 <body class="turkish-mode">
 
-    <div class="mouse-glow-bg" id="mouseGlowBg"></div>
+    <div class="magic-glow-container" id="magicGlowContainer">
+        <div class="magic-blob blob-red" data-speed="0.2"></div>
+        <div class="magic-blob blob-blue" data-speed="0.8"></div>
+        <div class="magic-blob blob-gold" data-speed="0.4"></div>
+        <div class="magic-blob blob-purple" data-speed="0.6"></div>
+    </div>
 
     <header>
         <a href="/"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
@@ -316,7 +371,7 @@
             </div>
         </div>
 
-        <div class="slide" style="background-image: url('4,.png');">
+        <div class="slide" style="background-image: url('0,.png');">
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">Trabzonspor x Adidas</span>
@@ -329,7 +384,7 @@
             </div>
         </div>
 
-        <div class="slide" style="background-image: url('3.png');">
+        <div class="slide" style="background-image: url('0.png');">
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">FC Red Bull Salzburg x Nike</span>
@@ -367,7 +422,7 @@
         </a>
 
         <a href="anasayfa2.html" class="kit-item">
-            <img src="4,.png" class="kit-img">
+            <img src="0,.png" class="kit-img">
             <div class="kit-info">
                 <h3>
                     <span class="lang-tr">Trabzonspor x adidas</span>
@@ -378,7 +433,7 @@
         </a>
 
         <a href="anasayfa3.html" class="kit-item">
-            <img src="3.png" class="kit-img">
+            <img src="0.png" class="kit-img">
             <div class="kit-info">
                 <h3>
                     <span class="lang-tr">FC Red Bull Salzburg x Nike</span>
@@ -400,7 +455,7 @@
         </a>
 
         <a href="proje5.html" class="kit-item">
-            <img src="post-fragshirts-jan-03-2026-3.jpeg" class="kit-img">
+            <img src="post-fragshirts-jan-03-2026-1.jpeg" class="kit-img">
             <div class="kit-info">
                 <h3>
                     <span class="lang-tr">Galatasaray x adidas</span>
@@ -433,7 +488,7 @@
         </a>
 
         <a href="proje8.html" class="kit-item">
-            <img src="post-fragshirts-dec-13-2025-2.jpeg" class="kit-img" onerror="this.src='tasarim1.jpeg'">
+            <img src="post-fragshirts-dec-13-2025-5.jpeg" class="kit-img" onerror="this.src='tasarim1.jpeg'">
             <div class="kit-info">
                 <h3>
                     <span class="lang-tr">Beşiktaş x Nike</span>
@@ -473,12 +528,32 @@
     </footer>
 
     <script>
-        // --- FAREYİ TAKİP EDEN IŞIK JS KODU ---
+        // --- YENİ EKLENEN: SİHİRLİ DUMAN JS KODU (3B DERİNLİK HESABI) ---
+        const blobs = document.querySelectorAll('.magic-blob');
+
         document.addEventListener('mousemove', function(e) {
-            document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
-            document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+            // Fare koordinatlarını ekranın merkezine göre normalize et (-1 to 1)
+            const x = (e.clientX / window.innerWidth) * 2 - 1; // Merkezin solundaysa -, sağındaysa +
+            const y = (e.clientY / window.innerHeight) * 2 - 1; // Merkezin üstündeyse -, altındaysa +
+
+            // Her sihirli leke (blob) için 3 boyulu derinlik hesapla
+            blobs.forEach(blob => {
+                // data-speed niteliğinden hızı al (Kırmızı:0.2, Mavi:0.8 vb.)
+                const speed = blob.dataset.speed || 1; 
+                // Temel hareket çarpanı (piksel) - Ne kadar 'Uzak/Yakın' görüneceğini belirler
+                const multiplier = 60; 
+
+                // Hız niteliğine göre sihrin merkezden ne kadar sapacağını hesapla
+                const translateX = x * speed * multiplier;
+                const translateY = y * speed * multiplier;
+
+                // CSS'e özel koordinatları gönder, CSS translate() bunu kullanır
+                blob.style.setProperty('--blob-tx', translateX + 'px');
+                blob.style.setProperty('--blob-ty', translateY + 'px');
+            });
         });
 
+        // Mevcut kodların...
         let slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         let slideInterval = setInterval(autoSlide, 4000);

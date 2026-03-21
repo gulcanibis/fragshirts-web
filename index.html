@@ -26,7 +26,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative; /* Efektin çalışması için */
+            position: relative; /* Efektin düzgün çalışması için eklendi */
         }
 
         a { text-decoration: none; color: inherit; }
@@ -36,42 +36,31 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- MODERN DİKEY TARAYICI (SCANNER) IŞIK EFEKTİ --- */
+        /* --- YENİ: DAĞINIK/ORGANİK IŞIK EFEKTİ (REFERANS SİTEDEKİ GİBİ) --- */
         .mouse-glow-bg {
             position: fixed;
             top: 0;
             left: 0;
-            width: 300px; /* Işık sütununun genişliği */
-            height: 100vh; /* Ekranı tam kaplaması için */
-            pointer-events: none; /* İçeriklere tıklamayı engellememesi için */
+            width: 800px; /* Işığın genişliği */
+            height: 800px; /* Işığın yüksekliği */
+            pointer-events: none; /* İçeriklere tıklamayı engellemez */
             z-index: 1; /* Arka planda kalması için */
             
-            /* Fareyi sadece yatay (X) eksende merkezleyerek takip eder */
-            transform: translateX(calc(var(--cursor-x, -1000px) - 150px));
+            /* Fareyi hem yatay (X) hem dikey (Y) eksende tam ortalayarak takip eder */
+            transform: translate(calc(var(--cursor-x, -1000px) - 50%), calc(var(--cursor-y, -1000px) - 50%));
             
-            /* Üstten ve alttan yumuşakça kaybolan, ortası kırmızı ışık */
-            background: linear-gradient(
-                to bottom, 
-                rgba(250,250,250,0) 0%, 
-                rgba(239, 68, 68, 0.05) 15%, 
-                rgba(239, 68, 68, 0.15) 50%, 
-                rgba(239, 68, 68, 0.05) 85%, 
-                rgba(250,250,250,0) 100%
-            );
+            /* Dağınık, bulutsu ve yumuşak bir ışık geçişi */
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.18) 0%, rgba(239, 68, 68, 0.05) 40%, transparent 70%);
             
-            /* Dikdörtgen hissini veren zarif sağ-sol kenar çizgileri */
-            border-left: 1px solid rgba(239, 68, 68, 0.25);
-            border-right: 1px solid rgba(239, 68, 68, 0.25);
+            /* Kenarları tamamen yok edip organik bir leke (blob) görünümü veren filtre */
+            filter: blur(60px);
             
-            /* Etrafa yayılan hafif kırmızı dış parlama */
-            box-shadow: 0 0 60px rgba(239, 68, 68, 0.1);
-            
-            /* Fareyi robotik değil, yağ gibi akan bir yumuşaklıkla takip etmesi için */
-            transition: transform 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+            /* Farenin arkasından yağ gibi, hafif gecikmeli süzülmesi için */
+            transition: transform 0.6s cubic-bezier(0.1, 0, 0.1, 1);
             will-change: transform;
         }
 
-        /* İçeriklerin ışığın üstünde net görünmesi için */
+        /* İçeriklerin ışığın üstünde kalması için Z-index ayarı eklendi */
         header, .featured-section, .section-header, .grid-container, footer {
             position: relative;
             z-index: 2;
@@ -91,7 +80,7 @@
         
         .logo-img { height: 50px; display: block; }
 
-        /* HEADER SAĞ KISIM */
+        /* --- HEADER SAĞ KISIM (İLETİŞİM + DİL) --- */
         .header-right {
             display: flex;
             align-items: center;
@@ -286,7 +275,7 @@
             .slide-content h2 { font-size: 1.5rem; }
             .arrow-btn { width: 35px; height: 35px; font-size: 18px; }
             .header-right { gap: 10px; }
-            .mouse-glow-bg { display: none; } /* Mobilde gizli kalır */
+            .mouse-glow-bg { display: none; } /* Mobilde performans için gizli */
         }
     </style>
 </head>
@@ -484,7 +473,7 @@
     </footer>
 
     <script>
-        // JS - Fare Takibi
+        // --- FAREYİ TAKİP EDEN IŞIK JS KODU ---
         document.addEventListener('mousemove', function(e) {
             document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
             document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');

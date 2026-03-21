@@ -36,7 +36,7 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- DAHA BELİRGİN DAĞINIK IŞIK EFEKTİ --- */
+        /* --- ÇOK DAHA GÜÇLÜ (TRANSPARANI AZALTILMIŞ) IŞIK EFEKTİ --- */
         .mouse-glow-bg {
             position: fixed;
             top: 0;
@@ -46,14 +46,12 @@
             pointer-events: none; 
             z-index: 1; 
             
-            /* Fareyi hem yatay hem dikey eksende takip eder */
             transform: translate(calc(var(--cursor-x, -1000px) - 50%), calc(var(--cursor-y, -1000px) - 50%));
             
-            /* DİKKAT: Saydamlık (opacity) değerleri çok daha belirgin yapıldı */
-            /* 0.18 -> 0.45 ve 0.05 -> 0.20'ye çıkartılarak güçlendirildi */
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.45) 0%, rgba(239, 68, 68, 0.20) 40%, transparent 70%);
+            /* DİKKAT: Saydamlık değerleri çok yükseğe çekildi, transparent alan daraltıldı */
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.8) 0%, rgba(239, 68, 68, 0.4) 50%, rgba(239, 68, 68, 0) 80%);
             
-            filter: blur(60px);
+            filter: blur(45px); /* Blur biraz kısıldı ki renk daha yoğun kalsın */
             
             transition: transform 0.6s cubic-bezier(0.1, 0, 0.1, 1);
             will-change: transform;
@@ -83,19 +81,28 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px; 
+            gap: 15px; /* Butonlar arası boşluk */
         }
 
+        /* --- İLETİŞİM KUTUSU (BUTONU) --- */
         .contact-btn {
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.8rem; 
+            font-weight: 500;
             color: var(--text);
             text-transform: uppercase;
-            transition: color 0.3s;
+            background: transparent; 
+            border: 1px solid #d1d5db; 
+            padding: 6px 12px; 
+            border-radius: 4px; 
+            transition: 0.3s;
+            cursor: pointer;
+            display: inline-block; 
         }
 
         .contact-btn:hover {
-            color: var(--primary);
+            background-color: var(--primary); 
+            border-color: var(--primary); 
+            color: #fff; 
         }
 
         /* DİL BUTONLARI */

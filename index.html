@@ -36,7 +36,7 @@
         body.english-mode .lang-tr { display: none; } 
         body.english-mode .lang-en { display: block; } 
 
-        /* --- ÇOK DAHA GÜÇLÜ (TRANSPARANI AZALTILMIŞ) IŞIK EFEKTİ --- */
+        /* --- ŞEFFAFLIĞI ARTIRILMIŞ (DAHA SOFT) IŞIK EFEKTİ --- */
         .mouse-glow-bg {
             position: fixed;
             top: 0;
@@ -46,12 +46,14 @@
             pointer-events: none; 
             z-index: 1; 
             
+            /* Fareyi hem yatay hem dikey eksende takip eder */
             transform: translate(calc(var(--cursor-x, -1000px) - 50%), calc(var(--cursor-y, -1000px) - 50%));
             
-            /* DİKKAT: Saydamlık değerleri çok yükseğe çekildi, transparent alan daraltıldı */
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.8) 0%, rgba(239, 68, 68, 0.4) 50%, rgba(239, 68, 68, 0) 80%);
+            /* Şeffaflık iyice artırıldı (Opaklık kısıldı: 0.15 ve 0.05) */
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 40%, transparent 70%);
             
-            filter: blur(45px); /* Blur biraz kısıldı ki renk daha yoğun kalsın */
+            /* Dumanın pürüzsüz dağılması için blur artırıldı */
+            filter: blur(80px);
             
             transition: transform 0.6s cubic-bezier(0.1, 0, 0.1, 1);
             will-change: transform;
@@ -294,8 +296,8 @@
         
         <div class="header-right">
             <a href="iletisim.html" class="contact-btn">
-                <span class="lang-tr">İletişim</span>
-                <span class="lang-en">Contact</span>
+                <span class="lang-tr">İLETİŞİM</span>
+                <span class="lang-en">CONTACT</span>
             </a>
 
             <div class="lang-switch">

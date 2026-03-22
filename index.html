@@ -154,22 +154,37 @@
         .slide-content h2 { font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; color: #fff; }
         .slide-content p { color: #e5e7eb; margin-bottom: 20px; }
         
-        /* --- DEĞİŞEN KISIM 1: SLİDER BUTONU ANİMASYONU --- */
+        /* --- YENİ TASARIM VE ANİMASYON: SLİDER BUTONU --- */
         .slide-btn {
             position: relative;
-            background: var(--primary); 
-            color: #fff; 
+            background: transparent; /* İçi boş başlar */
+            color: var(--primary); /* Yazı kırmızı */
+            border: 2px solid var(--primary); /* Kırmızı kenarlık */
             padding: 10px 25px; 
             font-weight: bold; 
             border-radius: 4px; 
             display: inline-flex; 
             align-items: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             overflow: hidden; 
+            z-index: 1;
+        }
+
+        /* Soldan sağa dolan arka plan animasyonu */
+        .slide-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            background-color: var(--primary);
+            z-index: -1;
+            transition: width 0.4s ease;
         }
         
         .slide-btn span {
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .slide-btn::after {
@@ -177,22 +192,28 @@
             position: absolute;
             right: -20px; 
             opacity: 0; 
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             font-weight: bold;
+            color: #fff;
+        }
+
+        .slide-btn:hover { 
+            color: #fff; /* Hoverda yazı beyaz olur */
+            padding-right: 35px; /* Ok için genişler */
+            border-color: var(--primary);
+        }
+
+        .slide-btn:hover::before {
+            width: 100%; /* Hoverda arka plan soldan sağa dolar */
         }
 
         .slide-btn:hover span {
-            transform: translateX(-10px); 
+            transform: translateX(-10px); /* Yazı sola kayar */
         }
 
         .slide-btn:hover::after {
             right: 15px; 
             opacity: 1; 
-        }
-
-        .slide-btn:hover { 
-            background-color: #dc2626; 
-            padding-right: 35px; 
         }
 
         /* OK TUŞLARI */
@@ -257,7 +278,7 @@
         
         .kit-info h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--text); font-weight: bold; line-height: 1.4; padding: 0 10px; }
         
-        /* --- DEĞİŞEN KISIM 2: GRID BUTONU ANİMASYONU --- */
+        /* --- YENİ TASARIM VE ANİMASYON: GRID BUTONU --- */
         .view-btn { 
             position: relative;
             display: inline-flex;
@@ -267,14 +288,25 @@
             padding: 8px 25px; 
             border-radius: 50px; 
             font-size: 0.95rem; 
-            background: #fff; 
+            background: transparent; /* İçi boş */
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             overflow: hidden;
+            z-index: 1;
+        }
+
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 0%;
+            background-color: var(--primary);
+            z-index: -1;
+            transition: width 0.4s ease;
         }
         
         .view-btn span {
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .view-btn::after {
@@ -282,14 +314,18 @@
             position: absolute;
             right: -20px; 
             opacity: 0; 
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             font-weight: bold;
+            color: #fff;
         }
 
         .view-btn:hover { 
-            background: var(--primary); 
             color: #fff; 
             padding-right: 35px; 
+        }
+
+        .view-btn:hover::before {
+            width: 100%;
         }
 
         .view-btn:hover span {

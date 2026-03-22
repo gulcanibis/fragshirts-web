@@ -154,12 +154,46 @@
         .slide-content h2 { font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; color: #fff; }
         .slide-content p { color: #e5e7eb; margin-bottom: 20px; }
         
+        /* --- DEĞİŞEN KISIM 1: SLİDER BUTONU ANİMASYONU --- */
         .slide-btn {
-            background: var(--primary); color: #fff; padding: 10px 25px; 
-            font-weight: bold; border-radius: 4px; display: inline-block;
-            transition: 0.3s;
+            position: relative;
+            background: var(--primary); 
+            color: #fff; 
+            padding: 10px 25px; 
+            font-weight: bold; 
+            border-radius: 4px; 
+            display: inline-flex; 
+            align-items: center;
+            transition: all 0.3s ease;
+            overflow: hidden; 
         }
-        .slide-btn:hover { background-color: #dc2626; }
+        
+        .slide-btn span {
+            transition: transform 0.3s ease;
+        }
+
+        .slide-btn::after {
+            content: '→'; 
+            position: absolute;
+            right: -20px; 
+            opacity: 0; 
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .slide-btn:hover span {
+            transform: translateX(-10px); 
+        }
+
+        .slide-btn:hover::after {
+            right: 15px; 
+            opacity: 1; 
+        }
+
+        .slide-btn:hover { 
+            background-color: #dc2626; 
+            padding-right: 35px; 
+        }
 
         /* OK TUŞLARI */
         .arrow-btn {
@@ -223,12 +257,49 @@
         
         .kit-info h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--text); font-weight: bold; line-height: 1.4; padding: 0 10px; }
         
+        /* --- DEĞİŞEN KISIM 2: GRID BUTONU ANİMASYONU --- */
         .view-btn { 
-            display: inline-block;
-            border: 2px solid var(--primary); color: var(--primary); padding: 8px 25px; 
-            border-radius: 50px; font-size: 0.95rem; background: #fff; font-weight: 600;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            border: 2px solid var(--primary); 
+            color: var(--primary); 
+            padding: 8px 25px; 
+            border-radius: 50px; 
+            font-size: 0.95rem; 
+            background: #fff; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
-        .view-btn:hover { background: var(--primary); color: #fff; }
+        
+        .view-btn span {
+            transition: transform 0.3s ease;
+        }
+
+        .view-btn::after {
+            content: '→'; 
+            position: absolute;
+            right: -20px; 
+            opacity: 0; 
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .view-btn:hover { 
+            background: var(--primary); 
+            color: #fff; 
+            padding-right: 35px; 
+        }
+
+        .view-btn:hover span {
+            transform: translateX(-8px); 
+        }
+
+        .view-btn:hover::after {
+            right: 15px; 
+            opacity: 1; 
+        }
 
         /* --- FOOTER & SOSYAL MEDYA --- */
         footer { 
@@ -315,11 +386,13 @@
             <div class="slide-content">
                 <h2>
                     <span class="lang-tr">FC Barcelona x Nike</span>
-                    <span class="lang-en">FC Barcelona x Nıke</span>
+                    <span class="lang-en">FC Barcelona x Nike</span>
                 </h2>
                 <a href="anasayfa1.html" class="slide-btn">
-                    <span class="lang-tr">İncele</span>
-                    <span class="lang-en">View Details</span>
+                    <span>
+                        <span class="lang-tr">İncele</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
                 </a>
             </div>
         </div>
@@ -331,8 +404,10 @@
                     <span class="lang-en">Trabzonspor x Puma</span>
                 </h2>
                 <a href="anasayfa2.html" class="slide-btn">
-                    <span class="lang-tr">İncele</span>
-                    <span class="lang-en">View Details</span>
+                    <span>
+                        <span class="lang-tr">İncele</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
                 </a>
             </div>
         </div>
@@ -344,8 +419,10 @@
                     <span class="lang-en">Trabzonspor x adıdas</span>
                 </h2>
                 <a href="anasayfa3.html" class="slide-btn">
-                    <span class="lang-tr">İncele</span>
-                    <span class="lang-en">View Details</span>
+                    <span>
+                        <span class="lang-tr">İncele</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
                 </a>
             </div>
         </div>
@@ -370,9 +447,15 @@
                     <span class="lang-tr">FC Barcelona x Nike</span>
                     <span class="lang-en">FC Barcelona x Nike</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
+
         <a href="anasayfa2.html" class="kit-item">
             <img src="puma1.png" class="kit-img">
             <div class="kit-info">
@@ -380,9 +463,15 @@
                     <span class="lang-tr">Trabzonspor x Puma</span>
                     <span class="lang-en">Trabzonspor x Puma</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
+
         <a href="anasayfa3.html" class="kit-item">
             <img src="4,.png" class="kit-img">
             <div class="kit-info">
@@ -390,7 +479,12 @@
                     <span class="lang-tr">Trabzonspor x adidas</span>
                     <span class="lang-en">Trabzonspor x adidas</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -401,7 +495,12 @@
                     <span class="lang-tr">FC Red Bull Salzburg x Nike</span>
                     <span class="lang-en">FC Red Bull Salzburg x Nike</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -412,7 +511,12 @@
                     <span class="lang-tr">Trabzonspor x Nike</span>
                     <span class="lang-en">Trabzonspor x Nike</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -423,7 +527,12 @@
                     <span class="lang-tr">Newcastle United x Kappa</span>
                     <span class="lang-en">Newcastle United x Kappa</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -434,7 +543,12 @@
                     <span class="lang-tr">Juventus x Umbro</span>
                     <span class="lang-en">Juventus x Umbro</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -445,7 +559,12 @@
                     <span class="lang-tr">SSC Napoli x Puma</span>
                     <span class="lang-en">SSC Napoli x Puma</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -456,7 +575,12 @@
                     <span class="lang-tr">Fenerbahçe SK x Puma</span>
                     <span class="lang-en">Fenerbahçe SK x Puma</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -467,7 +591,12 @@
                     <span class="lang-tr">FC Bayern München x Puma</span>
                     <span class="lang-en">FC Bayern München x Puma</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -478,7 +607,12 @@
                     <span class="lang-tr">AC Milan x Nike</span>
                     <span class="lang-en">AC Milan x Nike</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -489,7 +623,12 @@
                     <span class="lang-tr">Galatasaray x adidas</span>
                     <span class="lang-en">Galatasaray x adidas</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -500,7 +639,12 @@
                     <span class="lang-tr">Manchester City x adidas</span>
                     <span class="lang-en">Manchester City x adidas</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -511,7 +655,12 @@
                     <span class="lang-tr">Trabzonspor x Macron</span>
                     <span class="lang-en">Trabzonspor x Macron</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -522,7 +671,12 @@
                     <span class="lang-tr">Beşiktaş x Nike</span>
                     <span class="lang-en">Beşiktaş x Nike</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
 
@@ -533,7 +687,12 @@
                     <span class="lang-tr">Galatasaray x Puma</span>
                     <span class="lang-en">Galatasaray x Puma</span>
                 </h3>
-                <span class="view-btn"><span class="lang-tr">Detayları Gör</span><span class="lang-en">View Details</span></span>
+                <span class="view-btn">
+                    <span>
+                        <span class="lang-tr">Detayları Gör</span>
+                        <span class="lang-en">View Details</span>
+                    </span>
+                </span>
             </div>
         </a>
     </div>

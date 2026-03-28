@@ -1,0 +1,21 @@
+{
+  "name": "Fragshirts",
+  "short_name": "Fragshirts",
+  "description": "Football Shirt Design Collection",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#EF4444",
+  "icons": [
+    {
+      "src": "fragnewgölgesiz.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "fragnewgölgesiz.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

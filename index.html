@@ -840,44 +840,55 @@
             }
         }
 
-        // --- PWA: UYGULAMA İNDİRME JS KODU ---
+// --- PWA: UYGULAMA İNDİRME JS KODU ---
         let deferredPrompt;
         const installAppBtn = document.getElementById('installAppBtn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Chrome'un otomatik sormasını engelle
             e.preventDefault();
-            // Olayı daha sonra tetiklemek üzere sakla
             deferredPrompt = e;
-            // "Uygulama İndir" butonunu görünür yap
             installAppBtn.style.display = 'inline-block';
         });
 
         installAppBtn.addEventListener('click', async () => {
             if (deferredPrompt !== null) {
-                // Yükleme istemini göster
                 deferredPrompt.prompt();
-                // Kullanıcının yanıtını bekle
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                // İstemi temizle, bir kere kullanılabilir
                 deferredPrompt = null;
-                // Butonu tekrar gizle
                 installAppBtn.style.display = 'none';
             }
         });
 
-        // Servis worker'ı kaydet (Çevrimdışı çalışabilmek ve PWA olmak için şarttır)
+        // --- NÜKLEER ÖNBELLEK TEMİZLEYİCİ VE YENİ PWA KAYDI ---
         if ('serviceWorker' in navigator) {
+            // 1. ADIM: Tüm eski ve inatçı "Zombi" servisleri zorla bul ve yok et
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Eski inatçı Service Worker yokedildi!');
+                }
+            });
+
+            // 2. ADIM: Tarayıcının "Cache Storage" (Gizli Hafıza) deposunu kod ile zorla boşalt
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) {
+                        caches.delete(name);
+                        console.log('Eski hafıza deposu (Cache) silindi: ' + name);
+                    }
+                });
+            }
+
+            // 3. ADIM: Temiz bir sayfa açıp sistemi saniyeli damga ile (asla hafızada kalmasın diye) yeniden kur
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(registration => {
-                    console.log('SW registered: ', registration);
-                }).catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
+                // Sonuna anlık saat/saniye ekliyoruz ki Safari bunun eski dosya olduğunu iddia edemesin
+                let tazeLink = 'sw.js?v=' + new Date().getTime();
+                
+                navigator.serviceWorker.register(tazeLink).then(registration => {
+                    registration.update();
+                    console.log('Yepyeni ve temiz SW kuruldu!');
+                }).catch(err => {
+                    console.log('SW kurulamadı: ', err);
                 });
             });
         }

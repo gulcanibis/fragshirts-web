@@ -1,5 +1,5 @@
 // DİKKAT: Siteye her yeni forma eklediğinde buradaki v1 yazısını v2, v3, v4 diye değiştir!
-const CACHE_NAME = "fragshirts-v1";
+const CACHE_NAME = "fragshirts-v2";
 
 // Kurulum aşaması: Yeni versiyon gelirse hemen yükle
 self.addEventListener("install", event => {

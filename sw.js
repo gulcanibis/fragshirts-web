@@ -1,18 +1,19 @@
-const CACHE_NAME = "fragshirts-v2";
+// DİKKAT: Siteye her yeni forma eklediğinde buradaki v1 yazısını v2, v3, v4 diye değiştir!
+const CACHE_NAME = "fragshirts-v1";
 
-// 1. Kurulumda yeni versiyonu beklemeden hemen aktif et
+// Kurulum aşaması: Yeni versiyon gelirse hemen yükle
 self.addEventListener("install", event => {
     self.skipWaiting();
 });
 
-// 2. Aktifleştiğinde kullanıcının cihazındaki ESKİ hafızayı zorla sil
+// Aktivasyon aşaması: Yeni versiyon yüklendiğinde, ESKİ versiyonları KULLANICININ TELEFONUNDAN ZORLA SİL
 self.addEventListener("activate", event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cache => {
                     if (cache !== CACHE_NAME) {
-                        console.log("Eski önbellek silindi.");
+                        console.log("Eski versiyon silindi, yeni versiyon yüklendi.");
                         return caches.delete(cache);
                     }
                 })
@@ -21,11 +22,22 @@ self.addEventListener("activate", event => {
     );
 });
 
-// 3. Kullanıcı siteye girdiğinde HER ZAMAN önce güncel siteyi (internetten) çekmeyi dene.
+// Veri çekme aşaması (Network First stratejisi)
+// HER ZAMAN önce internetten güncel siteyi çeker. Sadece internet yoksa hafızadakini gösterir.
 self.addEventListener("fetch", event => {
     event.respondWith(
-        fetch(event.request).catch(() => {
-            return caches.match(event.request);
-        })
+        fetch(event.request)
+            .then(response => {
+                // İnternetten güncel veriyi çekince, bir kopyasını da çevrimdışı kullanım için hafızaya atar
+                const responseClone = response.clone();
+                caches.open(CACHE_NAME).then(cache => {
+                    cache.put(event.request, responseClone);
+                });
+                return response;
+            })
+            .catch(() => {
+                // Eğer kullanıcının interneti kesikse, hafızadaki eski siteyi açar
+                return caches.match(event.request);
+            })
     );
 });

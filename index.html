@@ -74,23 +74,22 @@
             z-index: 2;
         }
 
-        /* --- 3 PARÇALI YÜZEN HEADER TASARIMI --- */
+        /* --- 3 PARÇALI ÖZEL KAPSÜL HEADER TASARIMI --- */
         header { 
             position: sticky; 
             top: 20px; 
             align-self: center; 
-            width: 65%; /* 3 parça sığsın diye hafif genişletildi */
-            min-width: 700px;
+            width: 65%; 
+            min-width: 720px;
             display: flex; 
             justify-content: center; 
             align-items: center;
             z-index: 100; 
-            /* Ana taşıyıcıdan arka plan ve çizgiler kaldırıldı */
         }
 
         /* Ortak çerçeve özellikleri */
         .header-part {
-            background: rgba(250, 250, 250, 0.85); 
+            background: rgba(250, 250, 250, 0.90); 
             border: 1px solid var(--border); 
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -99,36 +98,40 @@
             transition: 0.3s;
         }
 
+        /* SOL PARÇA: Sol dışı tam yarım ay (kavisli), sağ tarafı düz */
         .header-left {
-            border-radius: 50px 15px 15px 50px; /* Sol kavisli, sağ birleşim yeri daha az kavisli */
-            padding: 0 30px; 
+            border-radius: 50px 8px 8px 50px; 
+            padding: 0 35px; 
             gap: 25px;
             flex: 1; 
-            height: 60px;
-            justify-content: center;
+            height: 55px;
+            justify-content: flex-start;
         }
 
+        /* ORTA PARÇA: Büyütülmüş, ayrı çerçeveli ve iki tarafı birbirine bağlayan kilit taş */
         .header-center {
-            border-radius: 50px; /* Tam oval */
-            padding: 0 25px;
-            height: 75px; /* Logoyu öne çıkarmak için daha yüksek */
-            margin: 0 -15px; /* Sol ve sağ parçanın üstüne bindirme efekti (Birleştirici) */
-            z-index: 2; /* Diğerlerinin üstünde dursun */
+            border-radius: 50px; 
+            padding: 0 30px;
+            height: 70px; /* Daha büyük ve dikkat çekici */
+            margin: 0 -12px; /* Sol ve sağ parça ile üst üste geçiş efekti */
+            z-index: 3; 
             flex: 0 0 auto;
             justify-content: center;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
         }
 
+        /* SAĞ PARÇA: Sağ dışı tam yarım ay (kavisli), sol tarafı düz */
         .header-right {
-            border-radius: 15px 50px 50px 15px; /* Sağ kavisli, sol birleşim yeri daha az kavisli */
-            padding: 0 30px; 
-            justify-content: center;
+            border-radius: 8px 50px 50px 8px; 
+            padding: 0 35px; 
+            justify-content: flex-end;
             gap: 15px; 
             flex: 1;
-            height: 60px;
+            height: 55px;
         }
         
-        .logo-img { height: 50px; display: block; transition: transform 0.3s ease; }
-        .logo-img:hover { transform: scale(1.08); }
+        .logo-img { height: 55px; display: block; transition: transform 0.3s ease; }
+        .logo-img:hover { transform: scale(1.1); }
 
         .nav-link {
             font-size: 0.85rem; 
@@ -321,21 +324,21 @@
             header { width: 90%; min-width: auto; }
         }
 
-        /* MOBİL TASARIM (Küçük ekranlarda 3 parça alt alta düzenli dizilir) */
         @media (max-width: 768px) {
             header { 
                 flex-direction: column; 
-                gap: 15px; 
+                gap: 12px; 
             }
             .header-center {
                 margin: 0;
                 height: 60px;
-                order: -1; /* Mobilde logoyu en üste alıyoruz */
+                order: -1; 
                 border-radius: 50px;
             }
             .header-left, .header-right { 
                 width: 100%;
-                border-radius: 50px; /* Mobilde hepsi tam kavisli tam bir hap olur */
+                border-radius: 25px;
+                justify-content: center;
             }
             .mouse-glow-bg { display: none; }
         }
@@ -346,7 +349,7 @@
     <div class="mouse-glow-bg" id="mouseGlowBg"></div>
 
     <header>
-        <!-- 1. ÇERÇEVE: SOL KISIM (Menüler) -->
+        <!-- 1. SOL PARÇA (Yarım ay dış kavis, düz iç bitiş) -->
         <div class="header-part header-left">
             <a href="kulupler.html" class="nav-link">
                 <span class="lang-tr">KULÜPLER</span>
@@ -358,12 +361,12 @@
             </a>
         </div>
 
-        <!-- 2. ÇERÇEVE: ORTA KISIM (Büyük Logo - Birleştirici) -->
+        <!-- 2. ORTA PARÇA (Büyütülmüş birleştirici logo alanı) -->
         <div class="header-part header-center">
             <a href="/"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
         </div>
         
-        <!-- 3. ÇERÇEVE: SAĞ KISIM (Dil & App) -->
+        <!-- 3. SAĞ PARÇA (Yarım ay dış kavis, düz iç bitiş) -->
         <div class="header-part header-right">
             <button id="installAppBtn">
                 <span class="lang-tr">APP İNDİR</span>

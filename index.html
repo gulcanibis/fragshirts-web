@@ -69,49 +69,67 @@
             will-change: transform;
         }
 
-        header, .section-header, .grid-container, footer {
+        .section-header, .grid-container, footer {
             position: relative;
             z-index: 2;
         }
 
-        /* HEADER */
+        /* --- YENİ YÜZEN (KAPSÜL) HEADER TASARIMI --- */
         header { 
-            padding: 15px 5%; 
+            position: sticky; 
+            top: 20px; /* En üstten biraz aşağıda */
+            align-self: center; /* Yatayda tam ortalama */
+            width: 60%; /* Yarı yarıya düşürülmüş (içerik sığması için %60 ideal) */
+            min-width: 650px;
+            padding: 10px 30px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            background: rgba(250, 250, 250, 0.95); 
-            position: sticky; top: 0; z-index: 100; 
-            border-bottom: 1px solid var(--border); 
-            backdrop-filter: blur(5px);
+            background: rgba(250, 250, 250, 0.85); 
+            z-index: 100; 
+            border: 1px solid var(--border); 
+            border-radius: 50px; /* Tam oval kenarlar */
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Havada süzülme efekti */
         }
-        
-        .logo-img { height: 50px; display: block; }
+
+        /* Logo tam ortada dursun diye sol ve sağ alanlar eşit genişlikte (flex: 1) yapıldı */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex: 1; 
+        }
+
+        .header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 0 0 auto;
+        }
 
         .header-right {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             gap: 15px; 
+            flex: 1;
         }
+        
+        .logo-img { height: 45px; display: block; }
 
-        .contact-btn {
-            font-size: 0.8rem; 
-            font-weight: 500;
+        .nav-link {
+            font-size: 0.85rem; 
+            font-weight: 600;
             color: var(--text);
             text-transform: uppercase;
-            background: transparent; 
-            border: 1px solid #d1d5db; 
-            padding: 6px 12px; 
-            border-radius: 4px; 
             transition: 0.3s;
             cursor: pointer;
-            display: inline-block; 
+            letter-spacing: 0.5px;
         }
 
-        .contact-btn:hover {
-            background-color: var(--primary); 
-            border-color: var(--primary); 
-            color: #fff; 
+        .nav-link:hover {
+            color: var(--primary); 
         }
 
         #installAppBtn {
@@ -122,7 +140,7 @@
             text-transform: uppercase;
             border: 1px solid var(--primary); 
             padding: 6px 12px; 
-            border-radius: 4px; 
+            border-radius: 20px; /* Butonu da oval yaptık menüye uysun diye */
             transition: 0.3s;
             cursor: pointer;
             display: none; 
@@ -133,21 +151,21 @@
         }
 
         /* DİL BUTONLARI */
-        .lang-switch { display: flex; gap: 10px; }
+        .lang-switch { display: flex; gap: 5px; background: #e5e7eb; padding: 3px; border-radius: 20px; }
         .lang-btn {
             background: transparent; 
-            border: 1px solid #d1d5db; 
-            color: var(--text); 
-            padding: 5px 10px; cursor: pointer; font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
+            border: none; 
+            color: #4b5563; 
+            padding: 5px 12px; cursor: pointer; font-size: 0.8rem; border-radius: 20px; font-weight: 600; transition: 0.3s;
         }
         .lang-btn.active, .lang-btn:hover { 
-            background-color: var(--primary);
-            border-color: var(--primary); 
-            color: #fff; 
+            background-color: #fff;
+            color: var(--primary); 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         /* KARTLAR (TASARIMLAR) */
-        .section-header { text-align: center; padding: 60px 20px 20px; }
+        .section-header { text-align: center; padding: 60px 20px 20px; margin-top: 20px; }
         .section-header h2 { 
             font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text);
             border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 10px; 
@@ -159,7 +177,7 @@
         }
         
         .kit-item { 
-            position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 12px; /* BURASI 1/1 DEN 4/5 E ÇEVRİLDİ */
+            position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 12px;
             background: var(--card-bg); transition: 0.3s; border: 1px solid var(--border);
         }
         .kit-item:hover { 
@@ -287,8 +305,21 @@
 
         .copyright { color: #6b7280; font-size: 0.85rem; }
 
+        @media (max-width: 900px) {
+            header { width: 90%; min-width: auto; }
+        }
+
         @media (max-width: 768px) {
-            .header-right { gap: 10px; flex-wrap: wrap; justify-content: flex-end;}
+            header { 
+                flex-direction: column; 
+                gap: 15px; 
+                border-radius: 25px; 
+                padding: 15px; 
+            }
+            .header-left, .header-right { 
+                justify-content: center; 
+                flex-wrap: wrap; 
+            }
             .mouse-glow-bg { display: none; }
         }
     </style>
@@ -298,18 +329,29 @@
     <div class="mouse-glow-bg" id="mouseGlowBg"></div>
 
     <header>
-        <a href="/"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
+        <!-- SOL KISIM: KULÜPLER VE İLETİŞİM -->
+        <div class="header-left">
+            <a href="kulupler.html" class="nav-link">
+                <span class="lang-tr">KULÜPLER</span>
+                <span class="lang-en">CLUBS</span>
+            </a>
+            <a href="iletisim.html" class="nav-link">
+                <span class="lang-tr">İLETİŞİM</span>
+                <span class="lang-en">CONTACT</span>
+            </a>
+        </div>
+
+        <!-- ORTA KISIM: LOGO -->
+        <div class="header-center">
+            <a href="/"><img src="fragkırmızı.png" alt="Fragshirts" class="logo-img"></a>
+        </div>
         
+        <!-- SAĞ KISIM: APP İNDİR VE DİL -->
         <div class="header-right">
             <button id="installAppBtn">
                 <span class="lang-tr">APP İNDİR</span>
                 <span class="lang-en">GET APP</span>
             </button>
-
-            <a href="iletisim.html" class="contact-btn">
-                <span class="lang-tr">İLETİŞİM</span>
-                <span class="lang-en">CONTACT</span>
-            </a>
 
             <div class="lang-switch">
                 <button class="lang-btn active" onclick="setLanguage('tr')" id="btn-tr">TR</button>
@@ -330,6 +372,7 @@
     </div>
 
       <div class="grid-container">
+        <!-- FORMALAR (Önceki kodun tamamen aynısı) -->
         <a href="fiorentina.html" class="kit-item">
         <img src="fiorentina0.png" class="kit-img" onerror="this.src='fiorentina0.png'"> 
             <div class="kit-info">
@@ -820,7 +863,7 @@
             }
         }
 
-// --- PWA: UYGULAMA İNDİRME JS KODU ---
+        // --- PWA: UYGULAMA İNDİRME JS KODU ---
         let deferredPrompt;
         const installAppBtn = document.getElementById('installAppBtn');
 
@@ -841,32 +884,25 @@
 
         // --- NÜKLEER ÖNBELLEK TEMİZLEYİCİ VE YENİ PWA KAYDI ---
         if ('serviceWorker' in navigator) {
-            // 1. ADIM: Tüm eski ve inatçı "Zombi" servisleri zorla bul ve yok et
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
                 for(let registration of registrations) {
                     registration.unregister();
-                    console.log('Eski inatçı Service Worker yokedildi!');
                 }
             });
 
-            // 2. ADIM: Tarayıcının "Cache Storage" (Gizli Hafıza) deposunu kod ile zorla boşalt
             if ('caches' in window) {
                 caches.keys().then(function(names) {
                     for (let name of names) {
                         caches.delete(name);
-                        console.log('Eski hafıza deposu (Cache) silindi: ' + name);
                     }
                 });
             }
 
-            // 3. ADIM: Temiz bir sayfa açıp sistemi saniyeli damga ile (asla hafızada kalmasın diye) yeniden kur
             window.addEventListener('load', () => {
-                // Sonuna anlık saat/saniye ekliyoruz ki Safari bunun eski dosya olduğunu iddia edemesin
                 let tazeLink = 'sw.js?v=' + new Date().getTime();
                 
                 navigator.serviceWorker.register(tazeLink).then(registration => {
                     registration.update();
-                    console.log('Yepyeni ve temiz SW kuruldu!');
                 }).catch(err => {
                     console.log('SW kurulamadı: ', err);
                 });
